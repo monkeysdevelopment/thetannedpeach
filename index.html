@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <!-- Material Kit CSS & Custom CSS-->
-    <link href="assets/css/material-kit.css?v=2.1.0" rel="stylesheet" />
+    <link href="assets/css/material-kit.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="assets/css/index_style.css" />
   </head>
   <body class="cont">
@@ -52,10 +52,12 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <form class="form-inline" action="#" method="get">
-                      <div class="form-group bmd-form-group">
-                        <input type="text" class="form-control" placeholder="Search" value data-search>
-                        <span id="searchLabel" class="_searchButton" aria-hidden="true">Search</span>
+                  <form class="form-inline nav-link" action="products.php" method="get">
+                      <div class="form-group bmd-form-group" style="margin-top:-20px">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <button type="submit" name="search_btn" class="btn btn-primary btn-link">
+                          <i class="material-icons">search</i>
+                        </button>
                       </div>
                   </form>
                 </li>
@@ -130,7 +132,7 @@
                       </span>
                     </div>
                     <div class="col-sm-2">
-                        <button type="button" class="btn btn-primary">JOIN</button>
+                        <button type="button" class="btn btn-info">JOIN</button>
                     </div>
                 </div>
                 <div class="row">
