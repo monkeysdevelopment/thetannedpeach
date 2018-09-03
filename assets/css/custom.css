@@ -1,20 +1,7 @@
 body {
   margin: 0;
-  font-family: 'Cantata One', serif;
+  font-family: 'Roboto', sans-serif;
 }
-
-h1 {
-    font-size: 14px;
-}
-
-h2 {
-    font-size: 12px;
-}
-
-p {
-    font-size: 8x;
-}
-
 .transparent{
   background-color: transparent !important;
 }

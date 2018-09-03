@@ -42,20 +42,19 @@ $(document).ready(function() {
   $('.sizes').change(function() {
 
     var selectAll = true;
-    var zioDB = "";
+    var sizes = "";
 
     $('.sizes').each( function(){
       if( $(this).is(":checked") ) {
           selectAll = false;
-          zioDB += $(this).val();
-          zioDB += "-";
+          sizes += $(this).val();
+          sizes += "-";
       }
     });
 
     $( "#allSizes").prop("checked", selectAll);
 
-    ajax_size_update(zioDB);
-
+    ajax_size_update(sizes);
   });
 
   $('#allSizes').change(function() {
@@ -68,30 +67,33 @@ $(document).ready(function() {
   });
 
 
-  function ajax_size_update(zioDB){
-
-    console.log(zioDB);
-    //ajax search
-
+  function ajax_size_update(sizes){
+    $.get("all_prod.php",
+      {
+        sizes: sizes
+      }).done(function(data){
+        // Display the returned data in browser
+        $('#filter_prods').html(data);
+    });
   }
 
   //categories function
   $('.categories').change(function() {
 
   var catAll = true;
-  var zioDB1 = "";
+  var categories = "";
 
   $('.categories').each( function(){
     if( $(this).is(":checked") ) {
       catAll = false;
-        zioDB1 += $(this).val();
-        zioDB1 += "-";
+        categories += $(this).val();
+        categories += "-";
     }
   });
 
   $( "#allCat").prop("checked", catAll);
 
-  ajax_cat_update(zioDB1);
+  ajax_cat_update(categories);
 
   });
 
@@ -105,9 +107,11 @@ $(document).ready(function() {
   });
 
 
-  function ajax_cat_update(zioDB1){
-
-  console.log(zioDB1);
-  //ajax search
-
+  function ajax_cat_update(categories){
+    $.get( "all_prod.php",
+      {categories: categories}
+    ).done(function(data){
+        // Display the returned data in browser
+        $('#filter_prods').html(data);
+    });
 }

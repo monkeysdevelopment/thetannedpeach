@@ -21,16 +21,14 @@ session_start();
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <!-- jquery CSS -->
-    <link rel="stylesheet" href="assets/jquery-ui/jquery-ui.min.css">    
     <!--     Fonts and icons     -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cantata+One|Roboto|Material+Icons" /><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cantata+One|Roboto|Material+Icons" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-TXfwrfuHVznxCssTxWoPZjhcss/hp38gEOH8UPZG/JcXonvBQ6SlsIF49wUzsGno" crossorigin="anonymous">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/custom.css">
-    <link rel="stylesheet" href="assets/css/all.css">
-    <link rel="stylesheet" href="assets/css/fontawesome.css">
 
 
     <title>Verde - Sustainable Fashion</title>
@@ -108,8 +106,7 @@ session_start();
     <script src="assets/js/scrollbar.js" type="text/javascript"></script>
     <script src="assets/js/carousel.js" type="text/javascript"></script>
     <script src="assets/js/validation.js" type="text/javascript"></script>
-    <script src="assets/js/account.js" type="text/javascript"></script>
     <script src="assets/js/search.js" type="text/javascript"></script>
-    
+
   </body>
 </html>

@@ -51,7 +51,7 @@
                   </div>
                   <div class="form-group">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" name="password" id="password" class="form-control" required minlength=6 maxlength="20">
+                    <input type="password" name="password" id="password" class="form-control" required minlength=6 maxlength=20>
                     <div class="valid-feedback">
                       Looks good!
                     </div>

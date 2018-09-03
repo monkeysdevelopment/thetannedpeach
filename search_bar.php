@@ -17,8 +17,7 @@
           // Attempt to execute the prepared statement
 
           $query->execute();
-          $result = $query->fetch();
-          while ($result) {
+          $result = $query->get_result();
 
           // Check number of rows in the result set
           $row = $result->num_rows;
@@ -36,9 +35,5 @@
           }
 
       }
-        echo "EROR";
-    }
-    $result->close();
   }
-$connect->close();
  ?>

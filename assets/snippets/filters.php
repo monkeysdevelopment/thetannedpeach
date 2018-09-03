@@ -100,8 +100,7 @@
                     </label>
                   </div><?php
                 }
-                $connect->close();
-                mysqli_close($connect);
+                $query->free_result();
                 ?>
             </div>
           </div>
