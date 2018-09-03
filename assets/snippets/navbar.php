@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top <?php if (strpos($_SERVER['SCRIPT_NAME'], 'index.php')) echo 'transparent make_transparent';  ?>">
   <!-- Navbar content -->
-  <a class="navbar-brand" href="index.php">
+  <a class="navbar-brand mb-0 h1" href="index.php">
     <img src="assets/images/logo/logo_hori_white.png" height="50" alt="Verde Logo">
   </a>
   <!-- Toggler -->

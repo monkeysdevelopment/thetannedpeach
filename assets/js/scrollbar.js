@@ -3,23 +3,8 @@ $(window).scroll(function() {
   var scroll = $(window).scrollTop();
   console.log(scroll);
   if (scroll > 10) {
-    $(".make_transparent").removeClass("transparent");
-    $(".make_transparent").addClass("bg-dark");
-
+      $(".navbar").removeClass("transparent");
   } else {
-    $(".make_transparent").addClass("transparent");
-    $(".make_transparent").removeClass("bg-dark");
+      $(".navbar").addClass("transparent");
   }
-});
-
-$(document).ready( function(){
-
-  $( "#searchbar" ).focusin(function() {
-    $( "#searchicon" ).addClass('searchicon_focus');
-  });
-
-  $( "#searchbar" ).focusout(function() {
-    $( "#searchicon" ).removeClass('searchicon_focus');
-  });
-
 });

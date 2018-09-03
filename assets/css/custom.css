@@ -1,7 +1,20 @@
 body {
   margin: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Cantata One', serif;
 }
+
+h1 {
+    font-size: 14px;
+}
+
+h2 {
+    font-size: 12px;
+}
+
+p {
+    font-size: 8x;
+}
+
 .transparent{
   background-color: transparent !important;
 }
@@ -44,7 +57,8 @@ body {
   border-radius: 5px;
   cursor: pointer;
 }
-.search-focus:onclick{
+
+.search-focus:focus {
   background-color: #fafafa;
   width: 300px;
   padding-left: 25px;

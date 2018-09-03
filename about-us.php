@@ -21,16 +21,16 @@ session_start();
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <!-- jquery CSS -->
-    <link rel="stylesheet" href="assets/jquery-ui/jquery-ui.min.css">    
     <!--     Fonts and icons     -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cantata+One|Roboto|Material+Icons" /><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+<!--   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-TXfwrfuHVznxCssTxWoPZjhcss/hp38gEOH8UPZG/JcXonvBQ6SlsIF49wUzsGno" crossorigin="anonymous"> -->
     <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/about-us.css">
     <link rel="stylesheet" href="assets/css/custom.css">
-    <link rel="stylesheet" href="assets/css/all.css">
-    <link rel="stylesheet" href="assets/css/fontawesome.css">
 
 
     <title>Verde - Sustainable Fashion</title>
@@ -39,37 +39,41 @@ session_start();
     <?php include('assets/snippets/navbar.php'); ?>
     <!-- Navbar content over -->
 
-    <img src="assets/images/logo/logo_main_white.png" alt="Verde Logo2" class="logo" width="200px">
-
-    <!-- Carousel content -->
-    <div id="carousel" class="carousel slide" data-ride="carousel">
-    <ol class="carousel-indicators">
-      <li data-target="#carousel" data-slide-to="0" class="active"></li>
-      <li data-target="#carousel" data-slide-to="1"></li>
-      <li data-target="#carousel" data-slide-to="2"></li>
-    </ol>
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-         <img class="d-block w-100 img-fluid" src="assets/images/landing/landing01.jpg" alt="First slide">
+    <!-- Banner image -->
+    <section id="banner">
+    <img src="assets/images/banner01.jpg">
+    </section>
+    
+   <!-- About us content -->
+   <main>
+   <div class="aboutus">
+     <h1 style="font-family: 'Cantata One', serif;">About Verde</h1>
+     <p style="font-family: 'Cantata One', serif;">Verde means “green” in Italian, as the name implies,  Verde is an e-commerce website that sells fashionable yet sustainable clothing which aims to be our customers’ “sustainable closet”. Our website offers women clothing includes tops, dresses, skirts, pants, jackets, shoes and accessories. We love shopping but we feel guilty, Verde is the solution as the fabrics we use come from eco-friendly resources.<br><br>
+     </p>
+   
+  
+   <div class="propic">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm">
+          <img id = "propic1" alt = "" src = "assets/images/about-us/about-us01.jpg">
+        </div>
+        <div class="col-sm">
+          <img id = "propic2" alt = "" src = "assets/images/about-us/about-us02.jpg">
+        </div>
+        <div class="col-sm">
+          <img id = "propic3" alt = "" src = "assets/images/about-us/about-us03.jpg">
+        </div>
       </div>
-      <div class="carousel-item">
-        <img class="d-block w-100 img-fluid" src="assets/images/landing/landing02.jpg" alt="Second slide">
-      </div>
-      <div class="carousel-item">
-        <img class="d-block w-100 img-fluid" src="assets/images/landing/landing03.jpg" alt="Third slide">
-      </div>
+     </div>
     </div>
-    <a href="products.php" class="btn btn-outline-light shop">SHOP NOW</a>
-    <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
-  </div>
-  <!-- Carousel content over -->
+     
+     <h4 style="font-family: 'Cantata One', serif;">#sustainablefashion<br><br></h4>
+        
+     </div>
+    </main>
+
+
   <!-- Newsletter content -->
   <div class="container-fluid jumbotron mb-0">
     <div class="row">
@@ -109,7 +113,6 @@ session_start();
     <script src="assets/js/carousel.js" type="text/javascript"></script>
     <script src="assets/js/validation.js" type="text/javascript"></script>
     <script src="assets/js/account.js" type="text/javascript"></script>
-    <script src="assets/js/search.js" type="text/javascript"></script>
-    
+    <script src="assets/js/image-hover.js" type="text/javascript"></script>
   </body>
 </html>

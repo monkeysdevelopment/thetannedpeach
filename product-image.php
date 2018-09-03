@@ -1,7 +1,7 @@
 <?php
   //require_once('assets/snippets/db.php');
   $product_number =  "01";
-  $category = "acc";
+  $category = "tops";
   $images = glob("assets/images/product-images/$category/products_".$category."_".$product_number."*.*");
   echo count($images);
   echo "<br />";
