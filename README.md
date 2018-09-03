@@ -1,5 +1,21 @@
 # thetannedpeach
 
+02/09/2018
+
+Pushed the newer version of the website. 
+
+<b>Need to fix:</b><br />
+-> The nav bar streaches to contain the results of the search <br />
+-> Currently the search doesn't point to the product details of that specific item after click <br />
+
+<b>WIP</b><br/>
+-> Alternative page just for registration since we need all the information from the customer ?<br />
+-> Search bar display thumbnail of product, name and price.<br /> 
+Enconutered problem on inner join with 3 tables since for that we need category, image and item tables.  
+
+
+--------------------------------------------------------------------------
+
 30/07/2018
 
 Unfortunately I failed in implementing the menu on the parallax. There is something that I missed. Unfortunately I was very tired yesterday so I took a day off from all school related stuff. 
