@@ -46,31 +46,38 @@ session_start();
     
    <!-- About us content -->
    <main>
-   <div class="aboutus">
-     <h1 style="font-family: 'Cantata One', serif;">About Verde</h1>
-     <p style="font-family: 'Cantata One', serif;">Verde means “green” in Italian, as the name implies,  Verde is an e-commerce website that sells fashionable yet sustainable clothing which aims to be our customers’ “sustainable closet”. Our website offers women clothing includes tops, dresses, skirts, pants, jackets, shoes and accessories. We love shopping but we feel guilty, Verde is the solution as the fabrics we use come from eco-friendly resources.<br><br>
-     </p>
-   
-  
-   <div class="propic">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm">
-          <img id = "propic1" alt = "" src = "assets/images/about-us/about-us01.jpg">
-        </div>
-        <div class="col-sm">
-          <img id = "propic2" alt = "" src = "assets/images/about-us/about-us02.jpg">
-        </div>
-        <div class="col-sm">
-          <img id = "propic3" alt = "" src = "assets/images/about-us/about-us03.jpg">
-        </div>
-      </div>
-     </div>
-    </div>
-     
-     <h4 style="font-family: 'Cantata One', serif;">#sustainablefashion<br><br></h4>
+   <div class="main-raised-box">
+       <div class="aboutus">
+         <!--<h1 style="font-family: 'Cantata One', serif;">About Verde</h1>-->
+         <h1>ABOUT VERDE</h1><br>
+         <p>Verde means “green” in Italian, as the name implies,  Verde is an e-commerce website that sells fashionable yet sustainable clothing which aims to be our customers’ “sustainable closet”. Our website offers women clothing includes tops, dresses, skirts, pants, jackets, shoes and accessories. We love shopping but we feel guilty, Verde is the solution as the fabrics we use come from eco-friendly resources.<br><br>
+         </p>
         
-     </div>
+         <h2 style="font-family: 'Cantata One', serif;">#sustainablefashion<br><br></h2>
+
+
+       <div class="propic">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm">
+              <img id = "propic1" alt = "" src = "assets/images/about-us/about-us01.jpg">
+            </div>
+            <div class="col-sm">
+              <img id = "propic2" alt = "" src = "assets/images/about-us/about-us02.jpg">
+            </div>
+            <div class="col-sm">
+              <img id = "propic3" alt = "" src = "assets/images/about-us/about-us03.jpg">
+            </div>
+          </div>
+         </div>
+        </div>
+     
+        
+        <h2 style="font-family: 'Cantata One', serif;">Interested in collaboration?<br><br></h2>   
+        <a href="contact-us.php" class="btn btn-secondary btn-LG">CONTACT US</a>
+        
+        </div>
+    </div>
     </main>
 
 
