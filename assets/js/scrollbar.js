@@ -1,7 +1,6 @@
 //transparent scrollbar
 $(window).scroll(function() {
   var scroll = $(window).scrollTop();
-  console.log(scroll);
   if (scroll > 10) {
     $(".make_transparent").removeClass("transparent");
     $(".make_transparent").addClass("bg-dark");

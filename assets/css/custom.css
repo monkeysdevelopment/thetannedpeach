@@ -61,3 +61,6 @@ body {
 .searchicon_focus{
   color: #333 !important;
 }
+.fav{
+  cursor: pointer !important;
+}

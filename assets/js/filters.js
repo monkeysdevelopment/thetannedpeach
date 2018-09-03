@@ -8,8 +8,6 @@ $(document).ready(function() {
       values: [ 40, 120 ],
       slide: function( event, ui ) {
         $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-        console.log("Slider has loaded");
-        console.log(ui.values);
       }
     });
 
@@ -66,14 +64,18 @@ $(document).ready(function() {
     }
   });
 
-
   function ajax_size_update(sizes){
-    $.get("all_prod.php",
-      {
-        sizes: sizes
-      }).done(function(data){
-        // Display the returned data in browser
-        $('#filter_prods').html(data);
+    $.ajax({
+      url: "products.php?sizes="+sizes,
+      type: "POST",
+      data: sizes,
+      success: function(response) {
+        $('#filter_prods').html(response);
+        console.log(response);
+      },
+      error: function(xhr) {
+        console.log("error");
+      }
     });
   }
 
@@ -108,10 +110,17 @@ $(document).ready(function() {
 
 
   function ajax_cat_update(categories){
-    $.get( "all_prod.php",
-      {categories: categories}
-    ).done(function(data){
-        // Display the returned data in browser
+    $.ajax({
+      url: "all_prod.php",
+      type: "GET",
+      data: categories,
+      success: function(data, status) {
         $('#filter_prods').html(data);
+        console.log(status);
+      },
+      error: function(xhr) {
+        console.log(status);
+      }
     });
+
 }
