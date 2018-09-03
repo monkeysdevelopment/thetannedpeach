@@ -1,5 +1,22 @@
 # thetannedpeach
 
+03/09/2018
+
+<b>Added / updated files:</b><br />
+-> contact-us.php   <br />
+-> contact-us.css   <br />
+-> googlemap.js     <br />
+-> about-us.php     <br />
+-> about-us.css     <br />
+-> custom.css (only added default h1, h2 and p font size)   <br />
+
+
+-> Added a raised box for the content on about us & contact us page  <br />
+-> About us google map working  <br />
+
+
+--------------------------------------------------------------------------
+
 02/09/2018
 
 Pushed the newer version of the website. 
