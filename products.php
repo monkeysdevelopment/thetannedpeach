@@ -115,7 +115,6 @@
         } else {
           echo "0 results";
        }
-       $result->close();
     ?>
   </div>
   <hr>
@@ -127,8 +126,8 @@
     <div  id="filters" class="col-sm-4">
       <?php include('assets/snippets/filters.php'); ?>
     </div>
-    <div class="col-sm-8" id="filter_prods">
-      <div class="row m-0 p-0">
+    <div class="col-sm-8" >
+      <div class="row m-0 p-0" id="filter_prods">
         <?php include('all_prod.php'); ?>
       </div>
     </div>
