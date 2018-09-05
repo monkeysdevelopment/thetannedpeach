@@ -8,6 +8,17 @@ $(document).ready(function() {
       values: [ 40, 120 ],
       slide: function( event, ui ) {
         $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+       
+        // While sliding check for each product if the price is in range 
+       // If it's in range show the product else hide it
+        $('.single_product').each(function(){
+          var price = $(this).data('price');
+          if( price >= ui.values[0] && price <= ui.values[1]){
+            $(this).show();
+          } else{
+            $(this).hide();
+          }
+        });
       }
     });
 
@@ -129,4 +140,6 @@ $(document).ready(function() {
         console.log(err);
       }
     });
+
+
 }
