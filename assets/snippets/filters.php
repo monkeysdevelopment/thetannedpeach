@@ -1,36 +1,37 @@
-<div class="col">
-  <div class="card">
+<div class="col ">
+  <div class="card bg-transparent border-0">
     <div class="card-body p-2">
-      <h4 class="card-title">
+      <h4 class="card-title_filter  ">
         Refine
         <button type="reset" class="btn btn-default btn-link text-right" rel="tooltip" title="" data-original-title="Reset Filter">
-          <i class="material-icons">cached</i>
+          <i class="material-icons  card-title_filter">cached</i>
         </button>
       </h4>
-        <div class="card card-collapse">
+        <div class="card card-collapse border-0  bg-transparent">
           <div class="card-header" role="tab" id="headingOne">
             <h5 class="mb-0">
-              <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              <a class="collapsed card-title_filter" data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                 Price Range
                 <i class="material-icons icn_price">keyboard_arrow_up</i>
               </a>
             </h5>
           </div>
-          <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+          <div id="collapseOne" class="collapse show card-title_filter" role="tabpanel" aria-labelledby="headingOne">
             <div class="card-body">
               <p>
                 <label for="amount">Price range:</label>
-                <input type="text" id="amount" style="border:0; color:#b3b3b3; font-weight:bold;" disabled>
+				<p id="demo">   </p>
+                <input type="text" id="amount" class="bg-transparent" style="border:0; color:#d7ebff; font-weight:bold;" disabled>
               </p>
               <div id="slider"></div>
               <button type="button" id="btnReset" class="btn btn-sm btn-outline-info mt-3">Reset</button>
             </div>
           </div>
         </div>
-        <div class="card card-collapse">
+        <div class="card card-collapse border-0 bg-transparent">
           <div class="card-header" role="tab" id="headingTwo">
             <h5 class="mb-0">
-              <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              <a class="collapsed card-title_filter" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                 Categories
                 <i class="material-icons icn_cat">keyboard_arrow_down</i>
               </a>
@@ -66,10 +67,10 @@
             </div>
           </div>
         </div>
-        <div class="card card-collapse">
+        <div class="card card-collapse border-0 bg-transparent">
           <div class="card-header" role="tab" id="headingThree">
             <h5 class="mb-0">
-              <a class="collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              <a class="collapsed card-title_filter" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                 Size
                 <i class="material-icons icn_size">keyboard_arrow_down</i>
               </a>
@@ -100,8 +101,8 @@
                     </label>
                   </div><?php
                 }
-                $connect->close();
-                mysqli_close($connect);
+              //  $connect->close();
+               // mysqli_close($connect);
                 ?>
             </div>
           </div>

@@ -17,19 +17,21 @@ session_start();
 
 
  <?php
+ 	$title_category_displayed = "NEW IN";
 //DB connection and query for no filters
-  DEFINE('DB_USERNAME', 'root');
-  DEFINE('DB_PASSWORD', '');
-  DEFINE('DB_HOST', 'localhost');
-  DEFINE('DB_DATABASE', 'verde');
-  $connect = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
   //retriving cards info
-    $sql="SELECT  item.item_id, item.name, item.price, image.url FROM item INNER JOIN image ON image.item_id = item.item_id WHERE image.url LIKE '%01a%' AND is_new = 1";
-    $result = mysqli_query($connect, $sql);
-    $sql2="SELECT  image.url FROM item INNER JOIN image ON image.item_id = item.item_id WHERE image.url LIKE '%01b%' AND is_new = 1";
+  require_once('assets/snippets/db.php');
+	//new in
+    $sqlNew="SELECT  item.item_id as id, item.name as name, category.name as category, item.price as price, image.url as url FROM item INNER JOIN image ON image.item_id = item.item_id INNER JOIN category ON category.cat_id = item.cat_id WHERE (image.url LIKE '%a%' OR image.url LIKE '%b%'  ) AND is_new = 1";
+    $resultNew = mysqli_query($connect, $sqlNew);
+    //only for the images
+	$sql2="SELECT  image.url FROM item INNER JOIN image ON image.item_id = item.item_id WHERE image.url LIKE '%01b%' AND is_new = 1";
     $result2 = mysqli_query($connect, $sql2);
-    $sqlAll = "SELECT item.item_id as id, item.name as name,item.description as description, category.name as category, item.price as price, image.url as url FROM ((item INNER JOIN image ON item.item_id = image.item_id) INNER JOIN category ON category.cat_id = item.cat_id) WHERE url LIKE '%a.%'";
+    //all products
+	$sqlAll = "SELECT item.item_id as id, item.name as name,item.description as description, category.name as category, item.price as price, image.url as url FROM ((item INNER JOIN image ON item.item_id = image.item_id) INNER JOIN category ON category.cat_id = item.cat_id) WHERE url LIKE '%a.%'";
     $resultAll =  mysqli_query($connect, $sqlAll);
+	
+
  ?> 
 
 <!DOCTYPE html>
@@ -63,7 +65,7 @@ session_start();
   <!-- navbar -->
  <?php include('assets/snippets/navbar.php'); ?>
   <br>
-	<div id="beginning_space"></div>
+	<div id="beginning_space">	</div>
   <div class="d-flex align-items-center">
 
 		<div class="ml-10 text-left">
@@ -73,9 +75,9 @@ session_start();
           <li class="breadcrumb-item active">Products</li>
         </ol>	
 		</div>
-		<div class="pr-0  ml-auto">
+		<div class="pr-0 ml-auto">
 			<!-- number of cards shown -->
-      
+			<h1 class="title_category"><?php echo $title_category_displayed; ?></h1>
       <!-- sorting -->
       
 			<!-- pagination -->
@@ -107,15 +109,23 @@ session_start();
   
   
 <!-- main -->  
-<main class="bg-transparent d-flex align-items-center col-sm-10">
+<main class="bg-transparent d-flex align-items-center col-sm-11 m-0 p-0">
   
 	<!-- Filters -->
-	<div  class="bg-transparent text-left">
+	<div  class="bg-transparent text-left col-sm-3">
      <?php include('assets/snippets/filters.php'); ?>  
-  </div>
+	</div>
   <!-- Product grid -->
-	<div id="products-id" class="bg-transparent products-grid pr-0 ml-auto" >  
+	<div id="products-id" class="bg-transparent products-grid pr-0 ml-auto col-sm-9" >  
 <?php $n=0;
+		$category_chosen = "new";
+		if($category_chosen == "all"){
+			$result = $resultAll;
+			$title_category_displayed = "ALL PRODUCTS";
+		}elseif($category_chosen == "new"){
+			$result = $resultNew;
+			$title_category_displayed = "NEW IN";
+		}
 //creation of cards with information from DB
     if ($result->num_rows > 0) {
       for($r = 1; $r <= 3; $r++){
@@ -126,13 +136,13 @@ session_start();
         while(($row = $result->fetch_assoc())&&($row2 = $result2->fetch_assoc()) ){
           $n++;
             echo('<div class="col-sm-4">'.
-                    '<div class="card" >'.
-                      '<a href="product-detail.php?var='.$row["item_id"].'">');?>
+                    '<div class="card card_products" >'.
+                      '<a href="product-detail.php?var='.$row["id"].'">');?>
                           <img onmouseover="this.src='<?php echo $row2["url"]; ?>';" onmouseout="this.src='<?php echo $row["url"]; ?>';" class="card-img-top" src=" <?php echo $row["url"]; ?>">
           <?php echo ('</a>'.
-                      '<div class=" card-body d-flex align-items-center">'.
+                      '<div class=" card-body card-body_product d-flex align-items-center">'.
                         '<div class="text-left">'.
-                          '<a class="a_title" href="product-detail.php?var='.$row["item_id"].'">'.
+                          '<a class="a_title" href="product-detail.php?var='.$row["id"].'">'.
                             '<h6 onmouseover="EnlargeFont(this)" onmouseout="BackToFont(this)" class="card-title">'.$row["name"].'</h6>'.
                           '</a>'.
                           '<p class="card-text" >AUD$ '.$row["price"].'</p>'.	

@@ -30,8 +30,8 @@ header{
 .disabled a{
   color: #282c30!important;
 }
-
-
+.title_category{
+}
 
 main{
 	margin: 0 auto;
@@ -51,7 +51,7 @@ main{
 	text-align: center;
 }	
 
-.card{
+.card_products{
 	width: 18rem;
   margin-bottom: 50px;
 }
@@ -63,7 +63,7 @@ a:hover{
   color: #212529 !important;
 }
 
-.card-body{
+.card-body_product{
   height: 114px;
 }
 
@@ -89,3 +89,10 @@ a:hover{
   background-repeat: no-repeat;
   font-family: 'Cantata One', serif;
 }
+
+.card-title_filter {
+	color: #d7ebff;
+}
+.card-title_filter:hover {
+	color: #d7ebff;
+}	
