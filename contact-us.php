@@ -13,7 +13,10 @@ session_start();
     } else {
       $logged = false;
     }
+
 ?>
+
+
 
 <!doctype html>
 <html lang="en">
@@ -33,96 +36,83 @@ session_start();
     <link rel="stylesheet" href="assets/css/custom.css">
 
     <title>Verde - Sustainable Fashion</title>
-    
-   <!-- Google map -->
-   <div id="map"></div>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCxw1fg7veUAYU_VkOcUNoH6u2ssa-Kcc&callback=initMap">
-    </script>
+      
     
   </head>
   <body>
+      
+      <!-- Google map content-->
+      <div class="map-container"><div id="map"></div></div>
+   
+      
     <?php include('assets/snippets/navbar.php'); ?>
     <!-- Navbar content over -->
-  
-  
-    
- <div id="contactUsMap" class="big-map"></div>
-  <div class="main main-raised">
-    <div class="contact-content">
-      <div class="container">
-        <h2 class="title">Send us a message</h2>
-        <div class="row">
-          <div class="col-md-6">
-            <p class="description">You can contact us with anything related to our Products. We&apos;ll get in touch with you as soon as possible.
-              <br>
-              <br>
-            </p>
-            <form role="form" id="contact-form" method="post">
-              <div class="form-group">
-                <label for="name" class="bmd-label-floating">Your name</label>
-                <input type="text" class="form-control" id="name">
-              </div>
-              <div class="form-group">
-                <label for="exampleInputEmails" class="bmd-label-floating">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmails">
-                <span class="bmd-help">We'll never share your email with anyone else.</span>
-              </div>
-              <div class="form-group">
-                <label for="phone" class="bmd-label-floating">Phone</label>
-                <input type="text" class="form-control" id="phone">
-              </div>
-              <div class="form-group label-floating">
-                <label class="form-control-label bmd-label-floating" for="message"> Your message</label>
-                <textarea class="form-control" rows="6" id="message"></textarea>
-              </div>
-              <div class="submit text-center">
-                <input type="submit" class="btn btn-primary btn-raised btn-round" value="Contact Us">
-              </div>
-            </form>
-          </div>
-          <div class="col-md-4 ml-auto">
-            <div class="info info-horizontal">
-              <div class="icon icon-primary">
-                <i class="material-icons">pin_drop</i>
-              </div>
-              <div class="description">
-                <h4 class="info-title">Find us at the office</h4>
-                <p> Bld Mihail Kogalniceanu, nr. 8,
-                  <br> 7652 Bucharest,
-                  <br> Romania
+      
+      
+  <!-- Contact us content -->
+    <div class="main-raised-box">
+        <div class="contact-content">
+          <div class="container">
+            <h1>CONTACT US</h1><br>
+            <div class="row">
+              <div class="col-md-6">
+                <p class="description">Leave us a message below and our customer service team will get in touch with you as soon as possible.
+                  <br>
+                  <br>
                 </p>
+                <form action="submit-form.php" role="form" id="contact-form" method="post">
+                  <div class="form-group">
+                    <label for="name" class="bmd-label-floating">Your name</label>
+                    <input type="text" class="form-control" id="name">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputEmails" class="bmd-label-floating">Email address</label>
+                    <input type="email" class="form-control" id="email">
+                  </div>
+                  <div class="form-group">
+                    <label for="phone" class="bmd-label-floating">Phone</label>
+                    <input type="text" class="form-control" id="phone">
+                  </div>
+                  <div class="form-group label-floating">
+                    <label class="form-control-label bmd-label-floating" for="message"> Your message</label>
+                    <textarea class="form-control" rows="6" id="message"></textarea>
+                  </div>
+                  <div class="submit text-left">
+                    <input type="submit" class="btn btn-secondary btn-LG" value="SUBMIT"> 
+                  </div>
+                </form>
               </div>
-            </div>
-            <div class="info info-horizontal">
-              <div class="icon icon-primary">
-                <i class="material-icons">phone</i>
-              </div>
-              <div class="description">
-                <h4 class="info-title">Give us a ring</h4>
-                <p> Michael Jordan
-                  <br> +40 762 321 762
-                  <br> Mon - Fri, 8:00-22:00
-                </p>
-              </div>
-            </div>
-            <div class="info info-horizontal">
-              <div class="icon icon-primary">
-                <i class="material-icons">business_center</i>
-              </div>
-              <div class="description">
-                <h4 class="info-title">Legal Information</h4>
-                <p> Creative Tim Ltd.
-                  <br> VAT &#xB7; EN2341241
-                  <br> IBAN &#xB7; EN8732ENGB2300099123
-                  <br> Bank &#xB7; Great Britain Bank
-                </p>
+              <div class="col-md-5 ml-auto">
+                <div class="info info-horizontal">
+                  <div class="icon icon-primary">
+                    <i class="material-icons">pin_drop</i>
+                  </div>
+                  <div class="description">
+                    <h4 class="info-title">Our Headquarter</h4>
+                    <p> 120 Spencer Street,
+                      <br> Melbourne,
+                      <br> VIC 3000 <br><br>
+                    </p>
+                  </div>
+                </div>
+                <div class="info info-horizontal">
+                  <div class="icon icon-primary">
+                    <i class="material-icons">phone</i>
+                  </div>
+                  <div class="description">
+                    <h4 class="info-title">Give us a ring</h4>
+                    <p> +61 234 567 890
+                      <br> Mon - Fri, 9:00-17:00 <br><br>
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
+      <!-- Contact us content over-->
+
 
 
 
@@ -168,5 +158,6 @@ session_start();
     <script src="assets/js/account.js" type="text/javascript"></script>
     <script src="assets/js/image-hover.js" type="text/javascript"></script>
     <script src="assets/js/googlemap.js" type="text/javascript"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfeX-6GJw9JIo_fWqfLFiYa8hwXcZotwo&callback=initMap"></script>
   </body>
 </html>
