@@ -65,7 +65,7 @@
         while($item = $result->fetch_assoc()) {
           $images = explode("|", $item['url']);
           $product = <<<DELIMITER
-          <div class="col-sm-4 product">
+          <div class="col-sm-4 single_product" data-price={$item['price']}>
             <div class="card" >
               <a href="product-detail.php?var={$item['id']}">
                 <img class="card-img-top" src="{$images[0]}">
@@ -73,7 +73,7 @@
               <div class=" card-body d-flex align-items-center">
                 <div class="text-left">
                   <h6 class="card-title">{$item['name']}</h6>
-                  <p class="card-text" >AUD$ {$item['price']}</p>
+                  <p class="card-text price" >AUD$ {$item['price']}</p>
                 </div>
                 <div class=" favourite-card ml-auto" >
                   <i class="material-icons fav">favorite_border</i>

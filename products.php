@@ -27,11 +27,6 @@
 
 </head>
 
-
-
-
-
-
 <body>
   <!-- navbar -->
  <?php include('assets/snippets/navbar.php'); ?>
