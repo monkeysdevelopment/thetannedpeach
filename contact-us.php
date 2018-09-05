@@ -36,18 +36,15 @@ session_start();
     <link rel="stylesheet" href="assets/css/custom.css">
 
     <title>Verde - Sustainable Fashion</title>
-    
-   <!-- Google map content-->
-   <div id="map"></div>
       
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfeX-6GJw9JIo_fWqfLFiYa8hwXcZotwo&callback=initMap">
-    
-
-        
-    </script>
     
   </head>
   <body>
+      
+      <!-- Google map content-->
+      <div class="map-container"><div id="map"></div></div>
+   
+      
     <?php include('assets/snippets/navbar.php'); ?>
     <!-- Navbar content over -->
       
@@ -161,5 +158,6 @@ session_start();
     <script src="assets/js/account.js" type="text/javascript"></script>
     <script src="assets/js/image-hover.js" type="text/javascript"></script>
     <script src="assets/js/googlemap.js" type="text/javascript"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfeX-6GJw9JIo_fWqfLFiYa8hwXcZotwo&callback=initMap"></script>
   </body>
 </html>

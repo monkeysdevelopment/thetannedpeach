@@ -1,7 +1,25 @@
 body {
   margin: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Cantata One', serif;
 }
+
+h1{
+  font-size: 40px;  
+}
+
+h2{
+    font-size: 18px;
+}
+
+h3{
+    font-size: 16px;
+}
+
+p{
+    font-size:14px;
+}
+
+
 .transparent{
   background-color: transparent !important;
 }
@@ -60,7 +78,4 @@ body {
 }
 .searchicon_focus{
   color: #333 !important;
-}
-.fav{
-  cursor: pointer !important;
 }
