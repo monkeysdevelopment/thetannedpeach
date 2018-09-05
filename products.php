@@ -27,11 +27,6 @@
 
 </head>
 
-
-
-
-
-
 <body>
   <!-- navbar -->
  <?php include('assets/snippets/navbar.php'); ?>
@@ -115,10 +110,9 @@
         } else {
           echo "0 results";
        }
-       $result->close();
     ?>
   </div>
-
+  <hr>
 </div>
   <!-- Product grid -->
 <div class="container">
@@ -127,8 +121,8 @@
     <div  id="filters" class="col-sm-4">
       <?php include('assets/snippets/filters.php'); ?>
     </div>
-    <div class="col-sm-8">
-      <div id="filter_prods" class="row m-0 p-0">
+    <div class="col-sm-8" >
+      <div class="row m-0 p-0" id="filter_prods">
         <?php include('all_prod.php'); ?>
       </div>
     </div>
@@ -137,10 +131,7 @@
 
 </main>
 
-
-  <!-- Footer -->
-
-  <!-- Newsletter content over -->
+  <!-- Footer content -->
   <?php include('assets/snippets/footer.php'); ?>
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -8,8 +8,17 @@ $(document).ready(function() {
       values: [ 40, 120 ],
       slide: function( event, ui ) {
         $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-        console.log("Slider has loaded");
-        console.log(ui.values);
+       
+        // While sliding check for each product if the price is in range 
+       // If it's in range show the product else hide it
+        $('.single_product').each(function(){
+          var price = $(this).data('price');
+          if( price >= ui.values[0] && price <= ui.values[1]){
+            $(this).show();
+          } else{
+            $(this).hide();
+          }
+        });
       }
     });
 
@@ -37,81 +46,100 @@ $(document).ready(function() {
     });
 });
 
-  //sizes functions
+
+  var str_categories = "";
+  var str_sizes = "";
+
+  // The size string global variable are reset to empty, the selectAll is set to true
+  // Check all checkbox, if any is selected set selectAll to false and append the value with "-"
+  // This will be used as a separator to be exploded in PHP and have all the value in an array
+  // Set the All checkbox based on the selectAll variable
+
 
   $('.sizes').change(function() {
 
     var selectAll = true;
-    var sizes = "";
-
+    str_sizes = "";
     $('.sizes').each( function(){
       if( $(this).is(":checked") ) {
           selectAll = false;
-          sizes += $(this).val();
-          sizes += "-";
+          str_sizes += $(this).val();
+          str_sizes += "-";
       }
     });
 
     $( "#allSizes").prop("checked", selectAll);
+    ajax_refresh_prod();
 
-    ajax_size_update(sizes);
   });
+
+  // Check the status of the checkbox id allSizes
+  // If it's selected remove the selection from all the checkbox below
 
   $('#allSizes').change(function() {
     if( $(this).is(":checked") ) {
         $( ".sizes").prop("checked", false);
-        ajax_size_update("");
     } else {
       $(this).prop("checked", true);
     }
+    ajax_refresh_prod();
   });
 
+  // The categories string global variable are reset to empty, the selectAll is set to true
+  // Check all checkbox, if any is selected set selectAll to false and append the value with "-"
+  // This will be used as a separator to be exploded in PHP and have all the value in an array
+  // Set the All checkbox based on the selectAll variable
 
-  function ajax_size_update(sizes){
-    $.get("all_prod.php",
-      {
-        sizes: sizes
-      }).done(function(data){
-        // Display the returned data in browser
-        $('#filter_prods').html(data);
-    });
-  }
-
-  //categories function
   $('.categories').change(function() {
 
   var catAll = true;
-  var categories = "";
-
+  str_categories = "";
   $('.categories').each( function(){
     if( $(this).is(":checked") ) {
       catAll = false;
-        categories += $(this).val();
-        categories += "-";
+      str_categories += $(this).val();
+      str_categories += "-";
     }
   });
 
   $( "#allCat").prop("checked", catAll);
-
-  ajax_cat_update(categories);
+  ajax_refresh_prod();
 
   });
+
+  // Check the status of the checkbox id allSizes
+  // If it's selected remove the selection from all the checkbox below
 
   $('#allCat').change(function() {
   if( $(this).is(":checked") ) {
       $( ".categories").prop("checked", false);
-      ajax_cat_update("");
   } else {
     $(this).prop("checked", true);
   }
+  ajax_refresh_prod();
   });
 
+  // AJAX get call to the all_prod snippet passing categories and sizes
+  // on success:  refresh the product section
+  // on error:    log the error
 
-  function ajax_cat_update(categories){
-    $.get( "all_prod.php",
-      {categories: categories}
-    ).done(function(data){
-        // Display the returned data in browser
-        $('#filter_prods').html(data);
+  function ajax_refresh_prod(){
+    console.log('c: ' + str_categories);
+    console.log('s: ' + str_sizes);
+
+    $.ajax({
+      url: 'all_prod.php',
+      type: "GET",
+      data: { categories : str_categories, sizes : str_sizes },
+      dataType: "html",
+      success: function(result) {
+        $('#filter_prods').html(result);
+        console.log(result);
+      },
+      error: function(err) {
+        console.log(err);
+      }
     });
+
+
 }
