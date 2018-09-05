@@ -35,7 +35,7 @@
       <div class="search-box">
         <input type="text" class="search-focus" id="searchbar" placeholder="search here..." autocomplete="off">
         <i class="fas fa-search fa-lg" id="searchicon"></i>
-        <div class="result"></div>
+        <span class="result"></span>
       </div>
     <ul class="navbar-nav mt-2 mt-lg-0 mr-0">
       <li class="nav-item">
