@@ -22,6 +22,7 @@
     if($row > 0){
       $user = $result->fetch_assoc();
       $_SESSION['fname'] = $user['fname'];
+      $_SESSION['user_id'] = $user['user_id'];
       header("Location: index.php");
     }else {
       echo 'no';

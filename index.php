@@ -96,7 +96,8 @@ session_start();
     </div>
   </div>
   <!-- Newsletter content over -->
-  <?php include('assets/snippets/footer.php'); ?>
+
+    <?php include('assets/snippets/footer.php'); ?>
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -107,6 +108,7 @@ session_start();
     <script src="assets/js/carousel.js" type="text/javascript"></script>
     <script src="assets/js/validation.js" type="text/javascript"></script>
     <script src="assets/js/search.js" type="text/javascript"></script>
+    <script src="assets/js/count_fav.js" type="text/javascript"></script>
 
   </body>
 </html>

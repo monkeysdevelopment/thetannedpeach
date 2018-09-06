@@ -1,43 +1,27 @@
-<?php
-
-session_start();
-
-  if( isset($_SESSION['fname']) )
-    {
-      if( count($_SESSION['fname']) > 0 )
-      {
-        $logged = true;
-      } else {
-        $logged = false;
-      }
-    } else {
-      $logged = false;
-    }
-?>
+<?php include('assets/snippets/check_session.php') ?>
 
 
 <!DOCTYPE html>
 <html  lang="en" dir="ltr">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Cantata+One">
-	<!-- CSS  -->
-	  <link rel="stylesheet" href="assets/css/product-detail.css">
-  <!-- Javascript -->
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <!--     Fonts and icons     -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cantata+One|Roboto|Material+Icons" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-  
-  
-  <title>Verde - Products</title>
-  
+  <link rel="stylesheet" href="assets/css/all.css">
+  <link rel="stylesheet" href="assets/css/fontawesome.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/jquery-ui/jquery-ui.min.css">
+  <link rel="stylesheet" href="assets/css/custom.css">
+  <link rel="stylesheet" href="assets/css/product-detail.css">
+  <title>Verde - Product Details</title>
+
 </head>
-  
+
 <body>
 
     <header class="header">
@@ -51,7 +35,7 @@ session_start();
               <li class="breadcrumb-item"><a href="index.php">Home</a></li>
               <li class="breadcrumb-item"><a href="products.php">Products</a></li>
               <li class="breadcrumb-item active">Product details</li>
-            </ol>	
+            </ol>
         </div>
         <div class="pr-0  ml-auto">
           <!-- sorting -->
@@ -61,68 +45,60 @@ session_start();
     </header>
   <?php
   //id of the item to display
-  $it_id = $_GET['var']; 
-//DB connection and query for no filters
-  DEFINE('DB_USERNAME', 'root');
-  DEFINE('DB_PASSWORD', '');
-  DEFINE('DB_HOST', 'localhost');
-  DEFINE('DB_DATABASE', 'verde');
-  $connect = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
+  $it_id = $_GET['var'];
+	require_once('assets/snippets/db.php');
   //retriving cards info
   $sql="SELECT item.name, item.price, item.description, image.url, category.name AS cat_name FROM item INNER JOIN image ON image.item_id = item.item_id INNER JOIN category ON category.cat_id = item.cat_id WHERE item.item_id = $it_id AND url LIKE  '%01a%'";
   $result = mysqli_query($connect, $sql);
    if ($result->num_rows > 0) {
-      $row = $result->fetch_assoc(); 
-   }else{ echo "no result"; }  
-     
-  
+      $row = $result->fetch_assoc();
+   }else{ echo "no result"; }
+
+
   ?>
-  
-    <!-- main -->  
-    <main class="col-sm-10">	
+
+    <!-- main -->
+    <main class="col-sm-10">
       <div class="row">
         <!-- image -->
         <div class="col-sm-6 mx-auto" >
-      
-                          <div id="carousel" class="carousel slide" data-ride="carousel">
-                              <!-- Indicators -->
-                              <ol class="carousel-indicators">
-                                <?php 
-                                $product_number =  "01";
-                                $category = $row["cat_name"];
-                                $images = glob("assets/images/product-images/$category/products_".$category."_".$product_number."*.*");
-                                $number_of_pictures = count($images);
-                                for ($x = 0; $x < $number_of_pictures; $x++) {
-                                  if($x == 0)
-                                    echo '<li data-target="#carousel" data-slide-to="0" class="active"></li>';   
-                                  else
-                                    echo '<li data-target="#carousel" data-slide-to="'.$x.'"></li>';     
-                                } 
-                                ?>                     
-                              </ol>
+          <div id="carousel" class="carousel slide" data-ride="carousel">
+              <!-- Indicators -->
+              <ol class="carousel-indicators">
+                <?php
+                $product_number =  "01";
+                $category = $row["cat_name"];
+                $images = glob("assets/images/product-images/$category/products_".$category."_".$product_number."*.*");
+                $number_of_pictures = count($images);
+                for ($x = 0; $x < $number_of_pictures; $x++) {
+                  if($x == 0)
+                    echo '<li data-target="#carousel" data-slide-to="0" class="active"></li>';
+                  else
+                    echo '<li data-target="#carousel" data-slide-to="'.$x.'"></li>';
+                }
+                ?>
+              </ol>
 
-                              <!-- Wrapper for slides -->
-                              <div class="carousel-inner">
-                                
-                                <?php
-                                  $k=0;
-                                  foreach ($images as $image) {
-                                    if ( $k==0 ){
-                                      echo '<div class="carousel-item active">';
-                                      $k++;
-                                    }else{
-                                      echo '<div class="carousel-item">';
-                                    }
-                                    echo '<img class=" img-fluid" src="'.$image.'">';
-                                    echo '</div>';
-                                
-                                  }
-                                ?>
-                                
-                              </div>                            
-                          </div> 
+              <!-- Wrapper for slides -->
+              <div class="carousel-inner">
+                <?php
+                  $k=0;
+                  foreach ($images as $image) {
+                    if ( $k==0 ){
+                      echo '<div class="carousel-item active">';
+                      $k++;
+                    }else{
+                      echo '<div class="carousel-item">';
+                    }
+                    echo '<img class=" img-fluid" src="'.$image.'">';
+                    echo '</div>';
 
-          
+                  }
+                ?>
+              </div>
+          </div>
+
+
         </div>
         <!-- information -->
         <div class="col-sm-6 d-flex ml-auto p-0">
@@ -130,19 +106,19 @@ session_start();
               <?php
               echo '<h3 class="">'.$row["name"].'</h3>'.
                    '<p class="" >AUD$ '.$row["price"].'</p>';
-              ?>  
+              ?>
               <br>
               <div class="accordion" id="accordionExample">
-                <div class="card border-0  m-0 col-sm-12">
+                <div class="card border-0  m-0 p-0 w-100 col-sm-12">
                   <div class="card-header p-0 border-1 bg-transparent" id="headingOne">
                     <h5 class="mb-0">
                       <button id="btn-sld" class="d-flex btn btn-link p-0 text-dark btn-block" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style=" text-decoration: none;" >
                         <h5 class="ml-0">Description</h5>
                         <span class="ml-auto">
                         <i id="sym2" class="ml-auto material-icons">keyboard_arrow_up</i>
-                        <i id="sym1" class="ml-auto material-icons">keyboard_arrow_down</i>  
+                        <i id="sym1" class="ml-auto material-icons">keyboard_arrow_down</i>
                         </span>
-                      </button>                      
+                      </button>
                     </h5>
                   </div>
                   <div id="collapseOne" class="collapse " aria-labelledby="headingOne" data-parent="#accordionExample">
@@ -156,7 +132,7 @@ session_start();
               </div>
               <br>
               <div class="accordion" id="accordionExample">
-                <div class="card border-0  m-0 col-sm-12">
+                <div class="card border-0  m-0 p-0 w-100 col-sm-12">
                   <div class="card-header p-0 border-1 bg-transparent" id="headingOne">
                     <h5 class="mb-0">
                       <button id="btn-sld" class="d-flex btn btn-link p-0 text-dark btn-block" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style=" text-decoration: none;" >
@@ -165,7 +141,7 @@ session_start();
                         <i id="sym3" class="ml-auto material-icons">keyboard_arrow_down</i>
                         <i id="sym4" class="ml-auto material-icons">keyboard_arrow_up</i>
                         </span>
-                      </button>                      
+                      </button>
                     </h5>
                   </div>
                   <div id="collapseOne" class="collapse card-body" aria-labelledby="headingOne" data-parent="#accordionExample">
@@ -181,10 +157,10 @@ session_start();
                   </div>
                 </div>
               </div>
-              
+
               <br>
               <div class="accordion" id="accordionExample">
-                <div class="card border-0 m-0 col-sm-12">
+                <div class="card border-0 m-0 p-0 w-100 col-sm-12">
                   <div class="card-header p-0 border-1 bg-transparent" id="headingOne">
                     <h5 class="mb-0">
                       <button id="btn-sld" class="d-flex btn btn-link p-0 text-dark btn-block" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style=" text-decoration: none;" >
@@ -193,7 +169,7 @@ session_start();
                         <i id="sym5" class="ml-auto material-icons">keyboard_arrow_down</i>
                         <i id="sym6" class="ml-auto material-icons">keyboard_arrow_up</i>
                         </span>
-                      </button>                      
+                      </button>
                     </h5>
                   </div>
                   <div id="collapseOne" class="collapse " aria-labelledby="headingOne" data-parent="#accordionExample">
@@ -208,7 +184,7 @@ session_start();
                   <i class="fa fa-shopping-bag mr-3"></i> ADD TO BAG</button>
               <p id="demo"></p>
             </div>
-          
+
         </div>
       </div>
 
@@ -230,20 +206,20 @@ session_start();
     <script src="assets/js/product-detail.js" type="text/javascript"></script>
      <script>
         function AddToBag(){
-          var radioButtons = document.getElementsByName("size");        
-          for (var i = 0; i < radioButtons.length; i++) {          
+          var radioButtons = document.getElementsByName("size");
+          for (var i = 0; i < radioButtons.length; i++) {
               if (radioButtons[i].checked) {
                 var sz_it = radioButtons[i].value;
                 var id_it = <?php echo $it_id ?>;
-                window.location.href = "cart.php?id=" + id_it + "&size=" + sz_it; 
+                window.location.href = "cart.php?id=" + id_it + "&size=" + sz_it;
                 break;
               }
           }
         }
-      </script> 
-    
-  
-  
-  
+      </script>
+
+
+
+
 </body>
 </html>
