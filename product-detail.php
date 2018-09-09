@@ -3,26 +3,26 @@
 
 <!DOCTYPE html>
 <html  lang="en" dir="ltr">
-<head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  <!--     Fonts and icons     -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cantata+One|Roboto|Material+Icons" />
-  <link rel="stylesheet" href="assets/css/all.css">
-  <link rel="stylesheet" href="assets/css/fontawesome.css">
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="assets/jquery-ui/jquery-ui.min.css">
-  <link rel="stylesheet" href="assets/css/custom.css">
-  <link rel="stylesheet" href="assets/css/product-detail.css">
-  <title>Verde - Product Details</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cantata+One|Roboto|Material+Icons" />
+    <link rel="stylesheet" href="assets/css/all.css">
+    <link rel="stylesheet" href="assets/css/fontawesome.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/jquery-ui/jquery-ui.min.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="stylesheet" href="assets/css/product-detail.css">
+    <title>Verde - Product Details</title>
 
-</head>
+  </head>
 
-<body>
+  <body>
 
     <header class="header">
      <?php include('assets/snippets/navbar.php'); ?>
@@ -43,22 +43,21 @@
         </div>
       </div>
     </header>
-  <?php
-  //id of the item to display
-  $it_id = $_GET['var'];
-	require_once('assets/snippets/db.php');
-  //retriving cards info
-  $sql="SELECT item.name, item.price, item.description, image.url, category.name AS cat_name FROM item INNER JOIN image ON image.item_id = item.item_id INNER JOIN category ON category.cat_id = item.cat_id WHERE item.item_id = $it_id AND url LIKE  '%01a%'";
-  $result = mysqli_query($connect, $sql);
-   if ($result->num_rows > 0) {
-      $row = $result->fetch_assoc();
-   }else{ echo "no result"; }
-
-
-  ?>
 
     <!-- main -->
     <main class="col-sm-10">
+      <?php
+      //id of the item to display
+      require_once('assets/snippets/db.php');
+      $it_id = $_GET['var'];
+      //retriving cards info
+      $sql_detail="SELECT item.name, item.price, item.description, GROUP_CONCAT(DISTINCT image.url SEPARATOR '|') as url, category.name AS cat_name FROM item INNER JOIN image ON image.item_id = item.item_id INNER JOIN category ON category.cat_id = item.cat_id WHERE item.item_id = $it_id AND url LIKE '%.%'";
+      $result_detail = $connect->query($sql_detail);
+       if ($result_detail->num_rows > 0) {
+          $row = $result_detail->fetch_assoc();
+       }else{ echo "no result"; }
+      ?>
+
       <div class="row">
         <!-- image -->
         <div class="col-sm-6 mx-auto" >
@@ -66,15 +65,14 @@
               <!-- Indicators -->
               <ol class="carousel-indicators">
                 <?php
-                $product_number =  "01";
-                $category = $row["cat_name"];
-                $images = glob("assets/images/product-images/$category/products_".$category."_".$product_number."*.*");
-                $number_of_pictures = count($images);
-                for ($x = 0; $x < $number_of_pictures; $x++) {
-                  if($x == 0)
+                $images = explode("|", $row['url']);
+                for ( $x = 0; $x < count($images); $x++) {
+                  if($x == 0){
                     echo '<li data-target="#carousel" data-slide-to="0" class="active"></li>';
-                  else
+                  }
+                  else{
                     echo '<li data-target="#carousel" data-slide-to="'.$x.'"></li>';
+                  }
                 }
                 ?>
               </ol>
@@ -204,6 +202,8 @@
     <script src="assets/js/validation.js" type="text/javascript"></script>
     <script src="assets/js/account.js" type="text/javascript"></script>
     <script src="assets/js/product-detail.js" type="text/javascript"></script>
+    <script src="assets/js/count_fav.js" type="text/javascript"></script>
+
      <script>
         function AddToBag(){
           var radioButtons = document.getElementsByName("size");

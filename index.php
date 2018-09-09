@@ -1,19 +1,4 @@
-<?php
-
-session_start();
-
-  if( isset($_SESSION['fname']) )
-    {
-      if( count($_SESSION['fname']) > 0 )
-      {
-        $logged = true;
-      } else {
-        $logged = false;
-      }
-    } else {
-      $logged = false;
-    }
-?>
+<?php include('assets/snippets/check_session.php'); ?>
 
 <!doctype html>
 <html lang="en">

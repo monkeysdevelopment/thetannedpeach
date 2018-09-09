@@ -2,8 +2,9 @@
   require_once('assets/snippets/check_session.php');
   require_once('assets/snippets/db.php');
   //retriving cards info
-  $sql="SELECT  item.item_id, item.name, item.price, image.url FROM item INNER JOIN image ON image.item_id = item.item_id WHERE image.url LIKE '%01a%' AND is_new = 1";
-  $result = mysqli_query($connect, $sql);
+  $sql1 = "SELECT  item.item_id, item.name, item.price, image.url FROM item INNER JOIN image ON image.item_id = item.item_id WHERE image.url LIKE '%01a%' AND is_new = 1";
+  $result1 = $connect->query($sql1);
+
   //only for the images
 	$sql2="SELECT  image.url FROM item INNER JOIN image ON image.item_id = item.item_id WHERE image.url LIKE '%01b%' AND is_new = 1";
   $result2 = mysqli_query($connect, $sql2);
@@ -83,13 +84,14 @@
   <div id="products-id" class="bg-transparent products-grid pr-0 ml-auto col-sm-9" >
     <?php
     //creation of cards with information from DB
-        if ($result->num_rows > 0) {
+        if ($result1->num_rows > 0) {
           for($r = 1; $r <= 3; $r++){
             //only 9 cards for page => 3 rows
           echo '<div class="row row-cards" >';
           for ($x = 1; $x <= 3; $x++) {
+
             //only 3 cards on each row
-            while(($row = $result->fetch_assoc())&&($row2 = $result2->fetch_assoc()) ){
+            while(($row = $result1->fetch_assoc())&&($row2 = $result2->fetch_assoc()) ){
               echo('<div class="col-sm-4">'.
                   '<div class="card card_products" >'.
                     '<a href="product-detail.php?var='.$row["item_id"].'">');?>
@@ -103,7 +105,7 @@
                         '<p class="card-text" >AUD$ '.$row["price"].'</p>'.
                       '</div>'.
                       '<div class=" favourite-card ml-auto">'.
-                        '<i class="material-icons fav" onclick=\'favItem('.$row["item_id"].','.$_SESSION['user_id'].')\' >favorite_border</i>'.
+                        '<i class="material-icons fav" onclick="favItem('.$row["item_id"].','.$_SESSION['user_id'].')">favorite_border</i>'.
                       '</div>'.
                     '</div>'.
                  '</div>'.
@@ -118,7 +120,7 @@
     ?>
   </div>
 </div>
-<hr>
+
   <!-- Product grid -->
 <div class="container">
   <h2>Find what you need</h2>
@@ -152,6 +154,8 @@
     <script src="assets/js/validation.js" type="text/javascript"></script>
     <script src="assets/js/filters.js" type="text/javascript"></script>
     <script src="assets/js/count_fav.js" type="text/javascript"></script>
+    <script src="assets/js/search.js" type="text/javascript"></script>
+
 
   <script>
     $(document).ready(function(){
@@ -161,16 +165,16 @@
       $('.fav').mouseleave(function(){
         $(this).text("favorite_border");
       });
+
     });
 
     function favItem(item_id, user_id){
       if(user_id == "" || user_id == null)
       {
-        alert("You must login before proceeding.");
+        alert("You must have an account before proceeding.");
         $("#accountModal").modal();
       }
       else {
-        alert("user: "+user_id);
         $.ajax({
           url: 'favourite.php',
           type: "GET",
@@ -185,6 +189,25 @@
         });
       }
     }
+
+    // function checkFavItems(user_id){
+    //   var itemID = "";
+    //   $.ajax({
+    //     url: 'assets/snippets/find_favourite.php',
+    //     type: "GET",
+    //     data: { user_id: user_id, },
+    //     success: function(result) {
+    //       // $.each(result, function(i, val){
+    //       //   console.log(val);
+    //       // });
+    //     },
+    //     error: function(err) {
+    //       console.log(err);
+    //     }
+    //   });
+    // }
+
+
   </script>
 </body>
 </html>

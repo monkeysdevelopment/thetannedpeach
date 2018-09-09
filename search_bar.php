@@ -27,7 +27,7 @@
               // Fetch result rows as an associative array
               while($item = $result->fetch_assoc()){
                 //needs the link to the product
-                  echo "<a href='#' class='list-group-item list-group-item-action search_item'>".$item['name']."</a>";
+                  echo "<a href='product-detail.php?var={$item['item_id']}' class='list-group-item list-group-item-action search_item'>".$item['name']."</a>";
               }
               echo "</div>";
           } else{

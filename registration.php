@@ -13,9 +13,9 @@
     $password = sha1($_POST['password_reg']);
 
     //clean strings for security
-    $fname = $mysqli->real_escape_string($fname);
-    $email = $mysqli->real_escape_string($email);
-    $password_reg = $mysqli->real_escape_string($password_reg);
+    $fname = $connect->real_escape_string($fname);
+    $email = $connect->real_escape_string($email);
+    $password_reg = $connect->real_escape_string($password_reg);
 
     //execute the query and extract results
     $query_check->bind_param("s", $email);
@@ -33,6 +33,7 @@
         $query_insert->bind_param("sss", $fname, $email, $password);
         $query_insert->execute();
         $_SESSION['fname'] = $fname;
+        //$_SESSION['user_id'] = $user['user_id'];
         header("Location: index.php");
       }else {
         echo 'Something is wrong';

@@ -1,14 +1,14 @@
 
 body{
-  font-family: 'Cantata One', serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 header{
 	margin: 0 auto;
   padding-top:50px;
 	box-sizing: border-box;
-  font-family: 'Cantata One', serif;
-}	
+  font-family: 'Roboto', sans-serif;
+}
 
 .breadcrumb_{
 	background-color: transparent !important;
@@ -18,7 +18,7 @@ header{
 }
 
 main{
-  font-family: 'Cantata One', serif;
+  font-family: 'Roboto', sans-serif;
 	margin: 0 auto;
   padding: 10px;
 	position: relative;
@@ -27,16 +27,16 @@ main{
 }
 
 .card{
-	margin:auto; 
+	margin:auto;
 	width: 18rem;
 }
 
 .size_{
-  font-size: 14px; 
+  font-size: 14px;
 }
 
 .btn-add-bag{
-  font-size: 10px; 
+  font-size: 10px;
   border-radius:0
 }
 .img-bag{

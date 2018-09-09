@@ -100,7 +100,6 @@
                     </label>
                   </div><?php
                 }
-                $query->free_result();
                 ?>
             </div>
           </div>

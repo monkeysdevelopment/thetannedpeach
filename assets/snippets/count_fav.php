@@ -5,15 +5,18 @@
     if( count($_SESSION['user_id']) > 0 )
     {
       $user = $_SESSION['user_id'];
-      $sql = "SELECT COUNT(*) as fav FROM favourite WHERE user_id = $user";
+      $sql_count_fav = "SELECT COUNT(*) as fav FROM favourite WHERE user_id = $user";
 
-      $result = $connect->query($sql);
+      $result = $connect->query($sql_count_fav);
 
       if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc())
         {
           echo $row['fav'];
         }
+      }
+      else {
+        echo "0";
       }
     }
   }

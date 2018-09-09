@@ -1,8 +1,6 @@
 <?php
-  session_start();
   require_once('assets/snippets/db.php');
 
-  header("Content-Type: text/plain");
 
   $sql = "SELECT * FROM user WHERE email = ? AND password = ?";
   if($query = $connect->prepare($sql)){
