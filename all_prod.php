@@ -1,6 +1,6 @@
 <?php
     require_once('assets/snippets/db.php');
-
+    require_once('assets/snippets/check_session.php');
     $where = "";
     //get filters
     if( isset($_GET['sizes']) )
@@ -9,8 +9,8 @@
       {
 
         $string_size = $_GET['sizes'];
-        
-        if (substr(rtrim($string_size), -1) == "-") { 
+
+        if (substr(rtrim($string_size), -1) == "-") {
           $string_size = substr($string_size, 0, -1);
         }
 
@@ -31,7 +31,7 @@
       if( !empty($_GET['categories']) )
       {
         $string_cat = $_GET['categories'];
-        if (substr(rtrim($string_cat), -1) == "-") { 
+        if (substr(rtrim($string_cat), -1) == "-") {
           $string_cat = substr($string_cat, 0, -1);
         }
 
@@ -49,8 +49,8 @@
     }
 
     //$sql = "SELECT item.item_id as id, item.name as name,item.description as description, category.name as category, item.price as price, image.url as url, size.name as size FROM item INNER JOIN image ON item.item_id = image.item_id INNER JOIN category ON category.cat_id = item.cat_id INNER JOIN stock ON item.item_id = stock.item_id INNER JOIN size ON stock.size_id = size.size_id WHERE url LIKE '%a.%'";
-    $sql = "SELECT DISTINCT item.item_id as id, item.name as name,item.description as description, 
-      category.name as cat, item.price as price, GROUP_CONCAT(DISTINCT image.url SEPARATOR '|') as url, 
+    $sql = "SELECT DISTINCT item.item_id as id, item.name as name,item.description as description,
+      category.name as cat, item.price as price, GROUP_CONCAT(DISTINCT image.url SEPARATOR '|') as url,
       GROUP_CONCAT(DISTINCT stock.size_id SEPARATOR '-') as size FROM item
       INNER JOIN category ON category.cat_id = item.cat_id
       INNER JOIN image ON item.item_id = image.item_id
@@ -58,6 +58,12 @@
 
     $sql .= $where;
     $sql .= " GROUP BY item.item_id";
+    if($logged){
+      $user_id = $_SESSION['user_id'];
+    }
+    else {
+      $user_id = "";
+    }
     if( $query = $connect->prepare($sql) ){
       $query->execute();
       $result = $query->get_result();
@@ -75,8 +81,8 @@
                   <h6 class="card-title">{$item['name']}</h6>
                   <p class="card-text price" >AUD$ {$item['price']}</p>
                 </div>
-                <div class=" favourite-card ml-auto" >
-                  <i class="material-icons fav">favorite_border</i>
+                <div class=" favourite-card ml-auto" data-fav={$item['id']}>
+                  <i class="material-icons fav" onclick="favItem({$item['id']} , {$_SESSION['user_id']})">favorite_border</i>
                 </div>
               </div>
            </div>

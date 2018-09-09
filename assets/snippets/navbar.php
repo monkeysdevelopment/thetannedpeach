@@ -35,18 +35,22 @@
       <div class="search-box">
         <input type="text" class="search-focus" id="searchbar" placeholder="search here..." autocomplete="off">
         <i class="fas fa-search fa-lg" id="searchicon"></i>
-        <span class="result"></span>
+        <span class="result">
+        </span>
       </div>
+
     <ul class="navbar-nav mt-2 mt-lg-0 mr-0">
-      <li class="nav-item">
+      <li class="nav-item dropdown">
         <!-- Button trigger modal -->
 
           <?php
             if($logged)
             {?>
-              <button type="button" class="btn btn-link nav-link">
+              <button type="button" class="btn btn-link nav-link dropdown-toggle" id="navbarAccount" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-user-cog fa-lg"></i>
-                <br><a href="logout.php">Log out</a>
+                <div class="dropdown-menu" aria-labelledby="navbarAccount">
+                  <a class="dropdown-item" href="logout.php">Log out</a>
+                </div>
               </button>
               <?php
             }else{ ?>
@@ -57,12 +61,26 @@
         </li>
         <li class="nav-item">
           <a href="#" class="nav-link">
-            <i class="fas fa-heart fa-lg"></i>
+            <?php
+              if($logged)
+              {?>
+                  <i class="fas fa-heart fa-lg"></i><span class="badge badge-pill badge-danger" id="count_fav"></span>
+              <?php } else{ ?>
+                <i class="fas fa-heart fa-lg"></i>
+                <?php } ?>
           </a>
         </li>
+
+        <span class="count"><?php include('assets/snippets/count_fav.php'); ?></span>
         <li class="nav-item">
           <a href="#" class="nav-link">
-            <i class="fas fa-shopping-bag fa-lg"></i>
+            <?php
+              if($logged)
+              {?>
+                <i class="fas fa-shopping-bag fa-lg"></i></span>
+              <?php } else{ ?>
+                <i class="fas fa-shopping-bag fa-lg"></i>
+              <?php } ?>
           </a>
         </li>
       </ul>

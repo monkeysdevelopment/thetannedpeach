@@ -13,14 +13,14 @@
 header{
 	margin: 0 auto;
 	box-sizing: border-box;
-}	
+}
 
 
 .breadcrumb_{
 	background-color: transparent !important;
 	font-size: 15px;
   margin:0px;
-  padding:0px;  
+  padding:0px;
 }
 
 
@@ -30,8 +30,9 @@ header{
 .disabled a{
   color: #282c30!important;
 }
-
-
+.title_category{
+	margin-right: 24px;
+}
 
 main{
 	margin: 0 auto;
@@ -49,9 +50,9 @@ main{
 .row-cards{
 	margin: auto;
 	text-align: center;
-}	
+}
 
-.card{
+.card_products{
 	width: 18rem;
   margin-bottom: 50px;
 }
@@ -63,13 +64,13 @@ a:hover{
   color: #212529 !important;
 }
 
-.card-body{
+.card-body_product{
   height: 114px;
 }
 
 .favourite-card{
-	display:block; 
-	float:right;  
+	display:block;
+	float:right;
 }
 
 .favourite-card_{
@@ -83,9 +84,16 @@ a:hover{
 
 
 .parallax{
-  background-image: url("../images/banner01.jpg");
+  /*background-image: url("../images/banner01.jpg");*/
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
-  font-family: 'Cantata One', serif;
+  font-family: 'Roboto', sans-serif;
+}
+
+.card-title_filter {
+	color: #d7ebff;
+}
+.card-title_filter:hover {
+	color: #d7ebff;
 }

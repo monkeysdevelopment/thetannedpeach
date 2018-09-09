@@ -1,8 +1,6 @@
 <?php
-  session_start();
   require_once('assets/snippets/db.php');
 
-  header("Content-Type: text/plain");
 
   $sql = "SELECT * FROM user WHERE email = ? AND password = ?";
   if($query = $connect->prepare($sql)){
@@ -22,6 +20,7 @@
     if($row > 0){
       $user = $result->fetch_assoc();
       $_SESSION['fname'] = $user['fname'];
+      $_SESSION['user_id'] = $user['user_id'];
       header("Location: index.php");
     }else {
       echo 'no';

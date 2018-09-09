@@ -8,8 +8,10 @@
         $logged = true;
       } else {
         $logged = false;
+        $_SESSION['user_id'] = "";
       }
     } else {
       $logged = false;
+      $_SESSION['user_id'] = "";
     }
  ?>

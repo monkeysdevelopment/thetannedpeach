@@ -6,9 +6,12 @@ function initMap() {
   // The map, centered at AIT
   var map = new google.maps.Map(
       document.getElementById('map'), {zoom: 13, center: ait});
-      /* gestureHandling: 'greedy' */ß
     
   // The marker, positioned at AIT
   var marker = new google.maps.Marker({position: ait, map: map});
+
+
+marker.setMap(map);
+    
 }
  
