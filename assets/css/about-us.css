@@ -3,8 +3,6 @@
     width: 1080px;
     box-shadow: 10px 10px 28px #888;
     border-radius: 25x;
-    margin-top: 330px;
-    background: #fff;
 }
 
 .aboutus{
@@ -21,11 +19,4 @@
   border-width: 1px;
   font: black;
   text-decoration: none;
-}
-
-#banner{
-    position: fixed;
-    top: 0;
-    z-index: -1;
-    width: 100%;
 }
