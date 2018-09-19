@@ -50,35 +50,18 @@
   			<!-- number of cards shown -->
 
         <!-- sorting -->
-
-  			<!-- pagination -->
-
-        <nav aria-label="Page navigation example">
-          <ul class="pagination m-0">
-            <li class="page-item disabled ">
-              <a class="page-link_ page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&lt;</span>
-                <span class="sr-only">Previous</span>
-              </a>
-            </li>
-            <li class="page-item disabled "><a class="page-link_ page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link_ page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link_ page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link_ page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&gt;</span>
-                <span class="sr-only">Next</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-
       </div>
   	</div>
   </header>
 <!-- main -->
-<main>
-
+<div id="favSidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <div id="fav_items">
+    <?php include('assets/snippets/sidebar_items.php'); ?>
+  </div>
+</div>
+<main id="main">
+  <div id="cover"></div>
 <div class="container">
   <h2>What's new</h2>
   <div id="products-id" class="bg-transparent products-grid pr-0 ml-auto col-sm-9" >
@@ -122,13 +105,17 @@
 </div>
 
   <!-- Product grid -->
+
 <div class="container">
+<!-- pagination -->
+
   <h2>Find what you need</h2>
   <div class="row">
     <div  id="filters" class="col-sm-4">
       <?php include('assets/snippets/filters.php'); ?>
     </div>
     <div class="col-sm-8" >
+    <div class="pagination"></div>
       <div class="row m-0 p-0" id="filter_prods">
         <?php include('all_prod.php'); ?>
       </div>
@@ -155,16 +142,24 @@
     <script src="assets/js/filters.js" type="text/javascript"></script>
     <script src="assets/js/count_fav.js" type="text/javascript"></script>
     <script src="assets/js/search.js" type="text/javascript"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js"></script>
 
   <script>
     $(document).ready(function(){
-      $('.fav').mouseenter(function(){
-        $(this).text("favorite");
-      });
-      $('.fav').mouseleave(function(){
-        $(this).text("favorite_border");
-      });
+      $('.fav').hover(
+        function(){$(this).text("favorite")},
+        function(){$(this).text("favorite_border")});
+
+        // $('.fav').mouseenter(function(){
+        //     $(this).text("favorite");
+        // });
+        // $('.fav').mouseleave(function(){
+        //     $(this).text("favorite_border");
+        // });
+      // }
+
+    var user_id = <?php echo $_SESSION['user_id']; ?>;
+    checkFavItems(user_id);
 
     });
 
@@ -190,23 +185,41 @@
       }
     }
 
-    // function checkFavItems(user_id){
-    //   var itemID = "";
-    //   $.ajax({
-    //     url: 'assets/snippets/find_favourite.php',
-    //     type: "GET",
-    //     data: { user_id: user_id, },
-    //     success: function(result) {
-    //       // $.each(result, function(i, val){
-    //       //   console.log(val);
-    //       // });
-    //     },
-    //     error: function(err) {
-    //       console.log(err);
-    //     }
-    //   });
-    // }
+    function checkFavItems(user_id){
+      if(user_id == "" || user_id == null)
+      {
+        alert("User ID not valid");
+      }
+      else {
+        $.ajax({
+          url: 'assets/snippets/find_favourite.php',
+          type: "GET",
+          data: { user_id: user_id },
+          success: function(result) {
+            //console.log(result);
+            var found = JSON.parse(result);
+              $('.found_fav').each(function(i){
+                if(jQuery.inArray(found, $(this).val()) === -1){
+                  $('#'+found[i]).text("favorite");
+                }
+              });
+          },
+          error: function(err) {
+            console.log(err);
+          }
+        });
+      }
+    }
 
+    function openNav(){
+      $('#favSidenav').css("width", "350px");
+      $('#cover').show();
+    }
+
+    function closeNav() {
+      $('#favSidenav').css("width", "0");
+      $('#cover').hide();
+    }
 
   </script>
 </body>

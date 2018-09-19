@@ -46,12 +46,13 @@
           <?php
             if($logged)
             {?>
-              <button type="button" class="btn btn-link nav-link dropdown-toggle" id="navbarAccount" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-user-cog fa-lg"></i>
+
+                <button type="button" class="btn btn-link nav-link dropdown-toggle" id="navbarAccount" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-user-cog fa-lg"></i>
+                </button>
                 <div class="dropdown-menu" aria-labelledby="navbarAccount">
                   <a class="dropdown-item" href="logout.php">Log out</a>
                 </div>
-              </button>
               <?php
             }else{ ?>
               <button type="button" class="btn btn-link nav-link" data-toggle="modal" data-target="#accountModal">
@@ -64,7 +65,7 @@
             <?php
               if($logged)
               {?>
-                  <i class="fas fa-heart fa-lg"></i><span class="badge badge-pill badge-danger" id="count_fav"></span>
+                  <i class="fas fa-heart fa-lg" onclick="openNav()"></i><span class="badge badge-pill badge-danger" id="count_fav"></span>
               <?php } else{ ?>
                 <i class="fas fa-heart fa-lg"></i>
                 <?php } ?>

@@ -81,8 +81,9 @@
                   <h6 class="card-title">{$item['name']}</h6>
                   <p class="card-text price" >AUD$ {$item['price']}</p>
                 </div>
-                <div class=" favourite-card ml-auto" data-fav={$item['id']}>
-                  <i class="material-icons fav" onclick="favItem({$item['id']} , {$_SESSION['user_id']})">favorite_border</i>
+                <div class=" favourite-card ml-auto">
+                  <input type="hidden" value={$item['id']} class="found_fav">
+                  <i class="material-icons fav" id={$item['id']} onclick="favItem({$item['id']} , {$_SESSION['user_id']})">favorite_border</i>
                 </div>
               </div>
            </div>

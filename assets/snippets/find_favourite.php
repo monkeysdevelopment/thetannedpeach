@@ -8,7 +8,8 @@
     while($row_fav = $result_find_fav->fetch_assoc()) {
       $fav[] = $row_fav['item_id'];
     }
-    echo $fav;
+    sort($fav);
+    echo json_encode($fav);
   }
 
  ?>
