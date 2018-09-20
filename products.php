@@ -57,7 +57,8 @@
 <div id="favSidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><i class="fal fa-times fa-2x"></i></a>
   <div id="fav_items">
-    <h4 class="text-light pl-3">Favorite</h4>
+    <h4 class="text-light text-uppercase text-center pb-4 border-bottom"><i class="material-icons">favorite</i> My favorite</h4>
+    <div class="pt-4"></div>
     <?php include('assets/snippets/sidebar_items.php'); ?>
   </div>
 </div>
@@ -145,47 +146,66 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js"></script>
 
   <script>
+    // [START] global variables
+    // found is needed to store the array from the favorite table
     var found;
     var user_id = <?php echo $_SESSION['user_id']; ?>;
+    // [END] global variables
+
 
     $(document).ready(function(){
+      //hide this [?? maybe better way for this ??]
       $('.count').hide();
 
+      //check from the DB to fill hearts on items already favorite
       checkFavItems(user_id);
+      //count is needed to fill the red pill badge for the number on the nav bar
       countFav();
-      clickFav();
-      hoverFav();
+      
 
-    });
-
-    function clickFav(){
       $('.fav').click(function(){
           checkFavItems(user_id);
-          console.log("Check hears.");
         
           countFav();
-          console.log("Check number hearts.");
       });
-    }
+
+      //on hover check if already favorite
+      hoverFav();
+
+      //TODO: needs to find a way to make the heart refresh on screen
+      // for the moment just the badge with the number updates. Some logical error?
+    });
 
     function hoverFav(){
+      //boolean to check if the item hovered is already favorite
       var isFavorite = false;
       $('.fav').hover(
+        //on mouse enter
         function(){
+          //get id of this specific element
           var id = $(this).attr("id");
+          //compare it with the elements in the found array
           if(jQuery.inArray(id, found) > -1){
-            console.log("Is favorite");
             isFavorite = true;
-            console.log("id: " + id+ " uid: " + user_id );
-            $('#'+id).attr("onclick","deleteFavItem("+id+", "+user_id+")");
+            //delete favorite record if hear is clicked
+            //TODO: try maybe can remove the hear here?
+            $('#'+id).click(function(){
+              deleteFavItem(id, user_id);
+            });
           } else {
+            //interactive effect if not already filled
             $(this).text("favorite");
             isFavorite = false;
-            $('#'+id).attr("onclick","favItem("+id+", "+user_id+")");
+            //add record in the DB on click
+            $('#'+id).click(function(){
+              favItem(id, user_id);
+            });
           }
         },
+        //on mouse leave
         function(){
           if(!isFavorite){
+            //replace the heart with the empty
             $(this).text("favorite_border");
           }
         }
@@ -193,6 +213,7 @@
     }
 
     function favItem(item_id, user_id){
+      //give alert if user doesn't exists and prompt login / sign up modal
       if(user_id == "" || user_id == null)
       {
         alert("You must have an account before proceeding.");
@@ -223,7 +244,8 @@
           type: "GET",
           data: { user_id: user_id },
           success: function(result) {
-            //console.log(result);
+            //parse json from the DB
+            //TODO: revise this function. Something is fucked up
             found = JSON.parse(result);
               $('.found_fav').each(function(i){
                 if(jQuery.inArray(found, $(this).val()) === -1){
@@ -237,7 +259,8 @@
         });
       }
     }
-
+    
+    //count html with count for badge
     function countFav(){
       $.get('assets/snippets/count_fav.php')
           .done(function( result ){
@@ -255,7 +278,10 @@
           url: 'assets/snippets/delete_fav.php',
           type: "GET",
           data: { item_id: item_id, user_id: user_id },
+          //TODO: check documentation what the done function do?
           success: function(result) {
+            checkFavItems(user_id);
+            countFav();
             console.log(result);
           },
           error: function(err) {
@@ -266,7 +292,7 @@
     }
 
     function openNav(){
-      $('#favSidenav').css("width", "350px");
+      $('#favSidenav').css("width", "400px");
       $('#cover').show();
     }
 

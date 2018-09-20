@@ -202,7 +202,6 @@
     <script src="assets/js/validation.js" type="text/javascript"></script>
     <script src="assets/js/account.js" type="text/javascript"></script>
     <script src="assets/js/product-detail.js" type="text/javascript"></script>
-    <script src="assets/js/count_fav.js" type="text/javascript"></script>
 
      <script>
         function AddToBag(){

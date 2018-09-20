@@ -7,13 +7,24 @@
   if ($result_sidebar_items->num_rows > 0) {
     while($row_fav_items = $result_sidebar_items->fetch_assoc()) {
       $fav_item = <<<DELIMITER
-      <div class="w-100">
-
-        <a href="product-detail.php?var={$row_fav_items['ID']}">
-          <img class="image" height="160px" src="{$row_fav_items['url']}">
-          {$row_fav_items['name']} {$row_fav_items['price']}
-        </a>
+      <div class="row pl-3">
+        <div class="col-10">
+          <a class="px-0" href="product-detail.php?var={$row_fav_items['ID']}">
+          <div class="row">
+            <div class="col-4 p-0 text-center">
+              <img class="image" height="100px" src="{$row_fav_items['url']}">
+            </div>
+            <div class="col-8 my-auto"">
+              <div><h6>{$row_fav_items['name']}</h6></div> <div><h6 class="text-muted text-right">\${$row_fav_items['price']}</h6></div>
+            </div>
+          </div>
+          </a>
+        </div>
+        <div class="col-2">
+          <a href="#" class="p-0" onclick="deleteFavItem({$row_fav_items['ID']}, $user_id)"><i class="fal fa-times"></i></a>
+        </div>
      </div>
+     
 DELIMITER;
     echo $fav_item;
     }

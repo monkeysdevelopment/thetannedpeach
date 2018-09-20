@@ -83,7 +83,7 @@
                 </div>
                 <div class=" favourite-card ml-auto">
                   <input type="hidden" value={$item['id']} class="found_fav">
-                  <i class="material-icons fav" id={$item['id']} onclick="">favorite_border</i>
+                  <i class="material-icons fav" id={$item['id']}>favorite_border</i>
                 </div>
               </div>
            </div>
