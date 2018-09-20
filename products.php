@@ -145,22 +145,30 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js"></script>
 
   <script>
+    
+
     $(document).ready(function(){
+      var found;
+      var user_id = <?php echo $_SESSION['user_id']; ?>;
+      checkFavItems(user_id);
+      var isFavorite = false;
       $('.fav').hover(
-        function(){$(this).text("favorite")},
-        function(){$(this).text("favorite_border")});
-
-        // $('.fav').mouseenter(function(){
-        //     $(this).text("favorite");
-        // });
-        // $('.fav').mouseleave(function(){
-        //     $(this).text("favorite_border");
-        // });
-      // }
-
-    var user_id = <?php echo $_SESSION['user_id']; ?>;
-    checkFavItems(user_id);
-
+        function(){
+          var id = $(this).attr("id");
+          if(jQuery.inArray(id, found) > -1){
+            console.log("Is favorite");
+            isFavorite = true;
+          }else{
+            $(this).text("favorite");
+            isFavorite = false;
+          }
+        },
+        function(){
+          if(!isFavorite){
+            $(this).text("favorite_border");
+          }
+        }
+      );
     });
 
     function favItem(item_id, user_id){
@@ -170,12 +178,12 @@
         $("#accountModal").modal();
       }
       else {
+        checkFavItems(user_id);
         $.ajax({
           url: 'favourite.php',
           type: "GET",
           data: { item_id: item_id, user_id: user_id },
           success: function(result) {
-            //$('#filter_prods').html(result);
             console.log(result);
           },
           error: function(err) {
@@ -197,7 +205,7 @@
           data: { user_id: user_id },
           success: function(result) {
             //console.log(result);
-            var found = JSON.parse(result);
+            found = JSON.parse(result);
               $('.found_fav').each(function(i){
                 if(jQuery.inArray(found, $(this).val()) === -1){
                   $('#'+found[i]).text("favorite");
