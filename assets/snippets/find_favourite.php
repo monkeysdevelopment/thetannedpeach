@@ -1,6 +1,5 @@
 <?php
   require_once('db.php');
-
   $user_id = $_GET['user_id'];
   $sql_find_fav = "SELECT * FROM favourite WHERE user_id = $user_id";
   $result_find_fav = $connect->query($sql_find_fav);

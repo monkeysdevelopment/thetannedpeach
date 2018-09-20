@@ -32,7 +32,7 @@
 </head>
 
 <body class="parallax">
-  <header class=" header">
+  <header class="header">
     <!-- navbar -->
    <?php include('assets/snippets/navbar.php'); ?>
     <br>
@@ -55,8 +55,9 @@
   </header>
 <!-- main -->
 <div id="favSidenav" class="sidenav">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><i class="fal fa-times fa-2x"></i></a>
   <div id="fav_items">
+    <h4 class="text-light pl-3">Favorite</h4>
     <?php include('assets/snippets/sidebar_items.php'); ?>
   </div>
 </div>
@@ -140,20 +141,34 @@
     <script src="assets/js/carousel.js" type="text/javascript"></script>
     <script src="assets/js/validation.js" type="text/javascript"></script>
     <script src="assets/js/filters.js" type="text/javascript"></script>
-    <script src="assets/js/count_fav.js" type="text/javascript"></script>
     <script src="assets/js/search.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js"></script>
 
   <script>
     var found;
-    
-    
     var user_id = <?php echo $_SESSION['user_id']; ?>;
 
-    
-
     $(document).ready(function(){
+      $('.count').hide();
+
       checkFavItems(user_id);
+      countFav();
+      clickFav();
+      hoverFav();
+
+    });
+
+    function clickFav(){
+      $('.fav').click(function(){
+          checkFavItems(user_id);
+          console.log("Check hears.");
+        
+          countFav();
+          console.log("Check number hearts.");
+      });
+    }
+
+    function hoverFav(){
       var isFavorite = false;
       $('.fav').hover(
         function(){
@@ -161,9 +176,12 @@
           if(jQuery.inArray(id, found) > -1){
             console.log("Is favorite");
             isFavorite = true;
-          }else{
+            console.log("id: " + id+ " uid: " + user_id );
+            $('#'+id).attr("onclick","deleteFavItem("+id+", "+user_id+")");
+          } else {
             $(this).text("favorite");
             isFavorite = false;
+            $('#'+id).attr("onclick","favItem("+id+", "+user_id+")");
           }
         },
         function(){
@@ -172,7 +190,7 @@
           }
         }
       );
-    });
+    }
 
     function favItem(item_id, user_id){
       if(user_id == "" || user_id == null)
@@ -186,7 +204,6 @@
           type: "GET",
           data: { item_id: item_id, user_id: user_id },
           success: function(result) {
-            checkFavItems(user_id);
             console.log(result);
           },
           error: function(err) {
@@ -200,8 +217,7 @@
       if(user_id == "" || user_id == null)
       {
         alert("User ID not valid");
-      }
-      else {
+      }else {
         $.ajax({
           url: 'assets/snippets/find_favourite.php',
           type: "GET",
@@ -214,6 +230,33 @@
                   $('#'+found[i]).text("favorite");
                 }
               });
+          },
+          error: function(err) {
+            console.log(err);
+          }
+        });
+      }
+    }
+
+    function countFav(){
+      $.get('assets/snippets/count_fav.php')
+          .done(function( result ){
+          $('#count_fav').html(result);
+      });
+    }
+
+    function deleteFavItem(item_id, user_id){
+      if(user_id == "" || user_id == null)
+      {
+        alert("User ID not valid");
+      }
+      else {
+        $.ajax({
+          url: 'assets/snippets/delete_fav.php',
+          type: "GET",
+          data: { item_id: item_id, user_id: user_id },
+          success: function(result) {
+            console.log(result);
           },
           error: function(err) {
             console.log(err);
