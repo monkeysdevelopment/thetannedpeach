@@ -145,11 +145,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js"></script>
 
   <script>
+    var found;
+    
+    
+    var user_id = <?php echo $_SESSION['user_id']; ?>;
+
     
 
     $(document).ready(function(){
-      var found;
-      var user_id = <?php echo $_SESSION['user_id']; ?>;
       checkFavItems(user_id);
       var isFavorite = false;
       $('.fav').hover(
@@ -178,12 +181,12 @@
         $("#accountModal").modal();
       }
       else {
-        checkFavItems(user_id);
         $.ajax({
           url: 'favourite.php',
           type: "GET",
           data: { item_id: item_id, user_id: user_id },
           success: function(result) {
+            checkFavItems(user_id);
             console.log(result);
           },
           error: function(err) {
