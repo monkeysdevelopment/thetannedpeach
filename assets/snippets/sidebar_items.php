@@ -7,7 +7,7 @@
   if ($result_sidebar_items->num_rows > 0) {
     while($row_fav_items = $result_sidebar_items->fetch_assoc()) {
       $fav_item = <<<DELIMITER
-      <div class="row pl-3">
+      <div class="row pl-3" id="rowfav-{$row_fav_items['ID']}">
         <div class="col-10">
           <a class="px-0" href="product-detail.php?var={$row_fav_items['ID']}">
           <div class="row">

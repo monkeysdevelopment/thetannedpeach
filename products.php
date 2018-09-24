@@ -176,19 +176,19 @@
       // for the moment just the badge with the number updates. Some logical error?
     });
 
+    var isFavorite = false;
     function hoverFav(){
       //boolean to check if the item hovered is already favorite
-      var isFavorite = false;
       $('.fav').hover(
         //on mouse enter
         function(){
           //get id of this specific element
           var id = $(this).attr("id");
           //compare it with the elements in the found array
-          if(jQuery.inArray(id, found) > -1){
+          //if(jQuery.inArray(id, found) > -1){
+          if( $(this).text() == "favorite" ){
             isFavorite = true;
             //delete favorite record if hear is clicked
-            //TODO: try maybe can remove the hear here?
             $('#'+id).click(function(){
               deleteFavItem(id, user_id);
             });
@@ -201,6 +201,7 @@
               favItem(id, user_id);
             });
           }
+          console.log(isFavorite);
         },
         //on mouse leave
         function(){
@@ -208,6 +209,7 @@
             //replace the heart with the empty
             $(this).text("favorite_border");
           }
+          console.log(isFavorite);
         }
       );
     }
@@ -225,7 +227,10 @@
           type: "GET",
           data: { item_id: item_id, user_id: user_id },
           success: function(result) {
-            console.log(result);
+            checkFavItems(user_id);
+            countFav();
+            isFavorite = true;
+            //console.log(result);
           },
           error: function(err) {
             console.log(err);
@@ -245,11 +250,12 @@
           data: { user_id: user_id },
           success: function(result) {
             //parse json from the DB
-            //TODO: revise this function. Something is fucked up
             found = JSON.parse(result);
               $('.found_fav').each(function(i){
-                if(jQuery.inArray(found, $(this).val()) === -1){
-                  $('#'+found[i]).text("favorite");
+                if(jQuery.inArray($(this).val(), found) > -1){
+                  $('#'+ $(this).val() ).text("favorite");
+                } else {
+                  $('#'+ $(this).val() ).text("favorite_border");
                 }
               });
           },
@@ -278,11 +284,12 @@
           url: 'assets/snippets/delete_fav.php',
           type: "GET",
           data: { item_id: item_id, user_id: user_id },
-          //TODO: check documentation what the done function do?
           success: function(result) {
             checkFavItems(user_id);
             countFav();
-            console.log(result);
+            isFavorite = false;
+            $("#rowfav-"+item_id).remove();
+            //console.log(result);
           },
           error: function(err) {
             console.log(err);
