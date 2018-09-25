@@ -13,22 +13,15 @@
       <li class="nav-item">
         <a class="nav-link" href="#">NEW IN</a>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          CLOTHING
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Tops</a>
-          <a class="dropdown-item" href="#">Skirts</a>
-          <a class="dropdown-item" href="#">Jeans</a>
-          <a class="dropdown-item" href="#">Dresses</a>
-          <a class="dropdown-item" href="#">Skirts</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Shoes</a>
-        </div>
+      <li class="nav-item">
+        <a class="nav-link" href="products.php">CLOTHING</a>
+      </li>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">ACCESSORIES</a>
+        <a class="nav-link" href="about-us.php">ABOUT US</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="contact-us.php">CONTACT US</a>
       </li>
     </ul>
 

@@ -37,7 +37,7 @@
    <?php include('assets/snippets/navbar.php'); ?>
     <br>
   	<div id="beginning_space"></div>
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center side">
 
   		<div class="ml-10 text-left">
   			<!-- Breadcrumbs -->
