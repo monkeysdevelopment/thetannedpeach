@@ -55,11 +55,13 @@
   </header>
 <!-- main -->
 <div id="favSidenav" class="sidenav">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><i class="fal fa-times fa-2x"></i></a>
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">
+    <i class="fal fa-times fa-2x"></i>
+  </a>
+
   <div id="fav_items">
     <h4 class="text-light text-uppercase text-center pb-4 border-bottom"><i class="material-icons">favorite</i> My favorite</h4>
-    <div class="pt-4"></div>
-    <?php include('assets/snippets/sidebar_items.php'); ?>
+    <div class="pt-4 sidebar"></div>
   </div>
 </div>
 <main id="main">
@@ -301,6 +303,10 @@
     function openNav(){
       $('#favSidenav').css("width", "400px");
       $('#cover').show();
+      $.get("assets/snippets/sidebar_items.php")
+        .done(function(result){
+          $('.sidebar').html(result);
+        }); 
     }
 
     function closeNav() {

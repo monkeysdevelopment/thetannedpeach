@@ -51,6 +51,7 @@
                   <i class="fas fa-user-cog fa-lg"></i>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="navbarAccount">
+                  <a class="dropdown-item disabled text-capitalize" href="#"><?php echo $_SESSION['fname']; ?></a>
                   <a class="dropdown-item" href="logout.php">Log out</a>
                 </div>
               <?php

@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  margin-left: 32px;
   font-family: 'Roboto', sans-serif;
   transition: background-color .5s;
 }
