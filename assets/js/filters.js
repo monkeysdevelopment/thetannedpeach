@@ -79,6 +79,7 @@ $(document).ready(function() {
   $('#allSizes').change(function() {
     if( $(this).is(":checked") ) {
         $( ".sizes").prop("checked", false);
+        str_sizes = "";
     } else {
       $(this).prop("checked", true);
     }
@@ -92,14 +93,16 @@ $(document).ready(function() {
 
   $('.categories').change(function() {
 
-  var catAll = true;
-  str_categories = "";
-  $('.categories').each( function(){
-    if( $(this).is(":checked") ) {
-      catAll = false;
-      str_categories += $(this).val();
-      str_categories += "-";
-    }
+    var catAll = true;
+    str_categories = "";
+    $('.categories').each( function(){
+      if( $(this).is(":checked") ) {
+        catAll = false;
+        str_categories += $(this).val();
+        str_categories += "-";
+      }else{
+        console.log(catAll);
+      }
   });
 
   $( "#allCat").prop("checked", catAll);
@@ -113,6 +116,7 @@ $(document).ready(function() {
   $('#allCat').change(function() {
   if( $(this).is(":checked") ) {
       $( ".categories").prop("checked", false);
+      str_categories = "";
   } else {
     $(this).prop("checked", true);
   }
@@ -134,7 +138,8 @@ $(document).ready(function() {
       dataType: "html",
       success: function(result) {
         $('#filter_prods').html(result);
-        console.log(result);
+        checkFavItems(user_id);
+        countFav();
       },
       error: function(err) {
         console.log(err);
