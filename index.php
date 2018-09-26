@@ -93,7 +93,6 @@
     <script src="assets/js/carousel.js" type="text/javascript"></script>
     <script src="assets/js/validation.js" type="text/javascript"></script>
     <script src="assets/js/search.js" type="text/javascript"></script>
-    <script src="assets/js/count_fav.js" type="text/javascript"></script>
 
   </body>
 </html>

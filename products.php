@@ -32,12 +32,12 @@
 </head>
 
 <body class="parallax">
-  <header class=" header">
+  <header class="header">
     <!-- navbar -->
    <?php include('assets/snippets/navbar.php'); ?>
     <br>
   	<div id="beginning_space"></div>
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center side">
 
   		<div class="ml-10 text-left">
   			<!-- Breadcrumbs -->
@@ -50,35 +50,22 @@
   			<!-- number of cards shown -->
 
         <!-- sorting -->
-
-  			<!-- pagination -->
-
-        <nav aria-label="Page navigation example">
-          <ul class="pagination m-0">
-            <li class="page-item disabled ">
-              <a class="page-link_ page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&lt;</span>
-                <span class="sr-only">Previous</span>
-              </a>
-            </li>
-            <li class="page-item disabled "><a class="page-link_ page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link_ page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link_ page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link_ page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&gt;</span>
-                <span class="sr-only">Next</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-
       </div>
   	</div>
   </header>
 <!-- main -->
-<main>
+<div id="favSidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">
+    <i class="fal fa-times fa-2x"></i>
+  </a>
 
+  <div id="fav_items">
+    <h4 class="text-light text-uppercase text-center pb-4 border-bottom"><i class="material-icons">favorite</i> My favorite</h4>
+    <div class="pt-4 sidebar"></div>
+  </div>
+</div>
+<main id="main">
+  <div id="cover"></div>
 <div class="container">
   <h2>What's new</h2>
   <div id="products-id" class="bg-transparent products-grid pr-0 ml-auto col-sm-9" >
@@ -122,13 +109,17 @@
 </div>
 
   <!-- Product grid -->
+
 <div class="container">
+<!-- pagination -->
+
   <h2>Find what you need</h2>
   <div class="row">
     <div  id="filters" class="col-sm-4">
       <?php include('assets/snippets/filters.php'); ?>
     </div>
     <div class="col-sm-8" >
+    <div class="pagination"></div>
       <div class="row m-0 p-0" id="filter_prods">
         <?php include('all_prod.php'); ?>
       </div>
@@ -153,22 +144,80 @@
     <script src="assets/js/carousel.js" type="text/javascript"></script>
     <script src="assets/js/validation.js" type="text/javascript"></script>
     <script src="assets/js/filters.js" type="text/javascript"></script>
-    <script src="assets/js/count_fav.js" type="text/javascript"></script>
     <script src="assets/js/search.js" type="text/javascript"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js"></script>
 
   <script>
+    // [START] global variables
+    // found is needed to store the array from the favorite table
+    var found;
+    var user_id = <?php echo $_SESSION['user_id']; ?>;
+    // [END] global variables
+
+
     $(document).ready(function(){
-      $('.fav').mouseenter(function(){
-        $(this).text("favorite");
-      });
-      $('.fav').mouseleave(function(){
-        $(this).text("favorite_border");
+      //hide this [?? maybe better way for this ??]
+      $('.count').hide();
+
+      //check from the DB to fill hearts on items already favorite
+      checkFavItems(user_id);
+      //count is needed to fill the red pill badge for the number on the nav bar
+      countFav();
+      
+
+      $('.fav').click(function(){
+          checkFavItems(user_id);
+        
+          countFav();
       });
 
+      //on hover check if already favorite
+      hoverFav();
+
+      //TODO: needs to find a way to make the heart refresh on screen
+      // for the moment just the badge with the number updates. Some logical error?
     });
 
+    var isFavorite = false;
+    function hoverFav(){
+      //boolean to check if the item hovered is already favorite
+      $('.fav').hover(
+        //on mouse enter
+        function(){
+          //get id of this specific element
+          var id = $(this).attr("id");
+          //compare it with the elements in the found array
+          //if(jQuery.inArray(id, found) > -1){
+          if( $(this).text() == "favorite" ){
+            isFavorite = true;
+            //delete favorite record if hear is clicked
+            $('#'+id).click(function(){
+              deleteFavItem(id, user_id);
+            });
+          } else {
+            //interactive effect if not already filled
+            $(this).text("favorite");
+            isFavorite = false;
+            //add record in the DB on click
+            $('#'+id).click(function(){
+              favItem(id, user_id);
+            });
+          }
+          console.log(isFavorite);
+        },
+        //on mouse leave
+        function(){
+          if(!isFavorite){
+            //replace the heart with the empty
+            $(this).text("favorite_border");
+          }
+          console.log(isFavorite);
+        }
+      );
+    }
+
     function favItem(item_id, user_id){
+      //give alert if user doesn't exists and prompt login / sign up modal
       if(user_id == "" || user_id == null)
       {
         alert("You must have an account before proceeding.");
@@ -180,8 +229,10 @@
           type: "GET",
           data: { item_id: item_id, user_id: user_id },
           success: function(result) {
-            //$('#filter_prods').html(result);
-            console.log(result);
+            checkFavItems(user_id);
+            countFav();
+            isFavorite = true;
+            //console.log(result);
           },
           error: function(err) {
             console.log(err);
@@ -190,23 +241,78 @@
       }
     }
 
-    // function checkFavItems(user_id){
-    //   var itemID = "";
-    //   $.ajax({
-    //     url: 'assets/snippets/find_favourite.php',
-    //     type: "GET",
-    //     data: { user_id: user_id, },
-    //     success: function(result) {
-    //       // $.each(result, function(i, val){
-    //       //   console.log(val);
-    //       // });
-    //     },
-    //     error: function(err) {
-    //       console.log(err);
-    //     }
-    //   });
-    // }
+    function checkFavItems(user_id){
+      if(user_id == "" || user_id == null)
+      {
+        alert("User ID not valid");
+      }else {
+        $.ajax({
+          url: 'assets/snippets/find_favourite.php',
+          type: "GET",
+          data: { user_id: user_id },
+          success: function(result) {
+            //parse json from the DB
+            found = JSON.parse(result);
+              $('.found_fav').each(function(i){
+                if(jQuery.inArray($(this).val(), found) > -1){
+                  $('#'+ $(this).val() ).text("favorite");
+                } else {
+                  $('#'+ $(this).val() ).text("favorite_border");
+                }
+              });
+          },
+          error: function(err) {
+            console.log(err);
+          }
+        });
+      }
+    }
+    
+    //count html with count for badge
+    function countFav(){
+      $.get('assets/snippets/count_fav.php')
+          .done(function( result ){
+          $('#count_fav').html(result);
+      });
+    }
 
+    function deleteFavItem(item_id, user_id){
+      if(user_id == "" || user_id == null)
+      {
+        alert("User ID not valid");
+      }
+      else {
+        $.ajax({
+          url: 'assets/snippets/delete_fav.php',
+          type: "GET",
+          data: { item_id: item_id, user_id: user_id },
+          success: function(result) {
+            checkFavItems(user_id);
+            countFav();
+            isFavorite = false;
+            $("#rowfav-"+item_id).remove();
+            //console.log(result);
+          },
+          error: function(err) {
+            console.log(err);
+          }
+        });
+      }
+    }
+
+    function openNav(){
+      $('#favSidenav').css("width", "400px");
+      $('#cover').show();
+      $.get("assets/snippets/sidebar_items.php")
+        .done(function(result){
+          $('.sidebar').html(result);
+        }); 
+    }
+
+    function closeNav() {
+      $('#favSidenav').css("width", "0");
+      $('#cover').hide();
+    }
 
   </script>
 </body>
