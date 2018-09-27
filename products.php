@@ -174,8 +174,11 @@
       //on hover check if already favorite
       hoverFav();
 
-      //TODO: needs to find a way to make the heart refresh on screen
-      // for the moment just the badge with the number updates. Some logical error?
+      $("#user_icon").tooltip('show');
+      setTimeout(function(){
+        $("#user_icon").tooltip('dispose');
+      }, 3000);
+      
     });
 
     var isFavorite = false;
