@@ -41,6 +41,7 @@ function fillInAddress() {
   }
   
   document.getElementById('address').value = address;
+  $('#address').trigger("change");
   
   jQuery('#locationField').slideUp();
   jQuery('#form').slideDown();
