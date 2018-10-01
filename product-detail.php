@@ -1,4 +1,4 @@
-<?php include('assets/snippets/check_session.php') ?>
+<?php include('assets/snippets/check_session.php'); ?>
 
 
 <!DOCTYPE html>
@@ -19,7 +19,9 @@
     <link rel="stylesheet" href="assets/css/custom.css">
     <link rel="stylesheet" href="assets/css/product-detail.css">
     <title>Verde - Product Details</title>
-
+    <script>
+      var user_id = <?php echo $_SESSION['user_id']; ?>;
+    </script>
   </head>
 
   <body>
@@ -43,7 +45,16 @@
         </div>
       </div>
     </header>
+    <div id="favSidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">
+        <i class="fal fa-times fa-2x"></i>
+      </a>
 
+      <div id="fav_items">
+        <h4 class="text-light text-uppercase text-center pb-4 border-bottom"><i class="material-icons">favorite</i> My favorite</h4>
+        <div class="pt-4 sidebar"></div>
+      </div>
+    </div>
     <!-- main -->
     <main class="col-sm-10">
       <?php
@@ -144,13 +155,32 @@
                   </div>
                   <div id="collapseOne" class="collapse card-body" aria-labelledby="headingOne" data-parent="#accordionExample">
                     <div class="row">
-                      <?php //echo'<Form name ="formToCart" Method ="Post" ACTION ="cart.php?id='.$it_id.'&size='.$size.'">' ?>
-                      <div class="size_ col-sm-2"> 6 <input type="radio" name="size" value="6" checked></div>
-                      <div class="size_ col-sm-2"> 8 <input type="radio" name="size" value="8"></div>
-                      <div class="size_ col-sm-2"> 10 <input type="radio" name="size" value="10"></div>
-                      <div class="size_ col-sm-2"> 12 <input type="radio" name="size" value="12"></div>
-                      <div class="size_ col-sm-2"> 14 <input type="radio" name="size" value="14"></div>
-                      <div class="size_ col-sm-2"> 16 <input type="radio" name="size" value="16"></div>
+                      
+						<?php
+						// item : $it_id
+						$sizes = array("6", "8", "10", "12", "14", "16");
+						$count_rows=0;
+						foreach ($sizes as $size) {
+							//get the quantity for each size
+							$sql_getquantity_by_size = "SELECT quantity, stock.size_id  FROM stock INNER JOIN size ON stock.size_id = size.size_id WHERE size.name = $size AND stock.item_id = $it_id ";
+							$result = $connect->query($sql_getquantity_by_size);
+							//if there is at least one item in stock, it will display the size, to be chosen by the user
+							if ($result->num_rows > 0) {
+								while($row = $result->fetch_assoc()){
+								    $quantity = $row['quantity'];
+								    if($quantity>0){
+										if($count_rows==0){
+											echo '<div class="size_ col-sm-2">'.$size.'<input type="radio" name="size_item" value="'.$row["size_id"].'"  checked ></div>';
+											$count_rows++;
+										}else	
+											echo '<div class="size_ col-sm-2">'.$size.'<input type="radio" name="size_item" value="'.$row["size_id"].'"></div>';
+								    }
+								}
+							}else {
+								echo "0";
+							}
+						}?>
+					  					  
                     </div>
                   </div>
                 </div>
@@ -180,7 +210,6 @@
               <br>
                 <button type = "button" onClick="AddToBag()"  class="btn-add-bag btn btn-dark col-sm-7">
                   <i class="fa fa-shopping-bag mr-3"></i> ADD TO BAG</button>
-              <p id="demo"></p>
             </div>
 
         </div>
@@ -200,20 +229,29 @@
     <!-- Custom Js -->
     <script src="assets/js/scrollbar.js" type="text/javascript"></script>
     <script src="assets/js/validation.js" type="text/javascript"></script>
-    <script src="assets/js/account.js" type="text/javascript"></script>
     <script src="assets/js/product-detail.js" type="text/javascript"></script>
+    <script src="assets/js/favorite.js" type="text/javascript"></script>
 
      <script>
+	 
         function AddToBag(){
-          var radioButtons = document.getElementsByName("size");
-          for (var i = 0; i < radioButtons.length; i++) {
-              if (radioButtons[i].checked) {
-                var sz_it = radioButtons[i].value;
-                var id_it = <?php echo $it_id ?>;
-                window.location.href = "cart.php?id=" + id_it + "&size=" + sz_it;
-                break;
-              }
-          }
+			//get the size from radio button and select the relative id from size table, and store it into $size_id 
+			var size = document.querySelector('input[name=size_item]:checked').value;
+			var user = <?php echo $_SESSION['user_id']; ?>;
+			var item = <?php echo $it_id ?>;
+			$.ajax({
+				url: 'assets/snippets/add_to_cart.php',
+				type: "GET",
+				data: { user:user, item:item, size:size},
+				success: function(result) {					
+					console.log(result);					
+				},
+				error: function(err) {
+					console.log(err);
+				}
+			});			
+			//passing data to the cart page
+			window.location.href = "cart.php";
         }
       </script>
 

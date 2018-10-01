@@ -17,12 +17,25 @@
   <link rel="stylesheet" href="assets/css/custom.css">
   <link rel="stylesheet" href="assets/css/checkout.css">
   <title>Verde - Checkout</title>
+  <script>
+    var user_id = <?php echo $_SESSION['user_id']; ?>;
+  </script>
 </head>
 <body>
     <header class="header">
         <!-- navbar -->
         <?php include('assets/snippets/navbar.php'); ?>
     </header>
+    <div id="favSidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">
+        <i class="fal fa-times fa-2x"></i>
+      </a>
+
+      <div id="fav_items">
+        <h4 class="text-light text-uppercase text-center pb-4 border-bottom"><i class="material-icons">favorite</i> My favorite</h4>
+        <div class="pt-4 sidebar"></div>
+      </div>
+    </div>
     <main>
         <div id="bar">
             <div class="d-flex justify-content-between mb-4">
@@ -136,6 +149,7 @@
     <script src="assets/js/search.js" type="text/javascript"></script>
     <script src="assets/js/autocomplete.js" type="text/javascript"></script>
     <script src="https://checkout.stripe.com/checkout.js"></script>
+    <script src="assets/js/favorite.js" type="text/javascript"></script>
 
     <script>
         var handler = StripeCheckout.configure({
