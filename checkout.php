@@ -37,6 +37,7 @@
       </div>
     </div>
     <main>
+        <a href="cart.php"><i class="material-icons align-middle text-dark back" data-toggle="tooltip" data-placement="right" title="Back to cart">arrow_back</i></a>
         <div id="bar">
             <div class="d-flex justify-content-between mb-4">
                 <div class="text-uppercase m-auto text-center h4">Order</div>
@@ -44,20 +45,41 @@
                 <div class="text-uppercase m-auto text-center h4">Payment</div>
             </div>
             <div class="progress">
-                <div class="progress-bar progress-bar" id="progress" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" style="width:33%"></div>
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" id="progress" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" style="width:33%"></div>
             </div>
         </div>
-        <div class="container-fluid w-100">
+        <div class="container-fluid w-100 pb-5">
             <div class="row px-4">
                 <!-- ORDER -->
+                <?php include('assets/snippets/get_cart.php'); ?>
                 <div class="col-sm-4 px-5">
                     <p class="h4 text-center text-capitalize m-auto py-5">Your cart</p>
-                    <div class="jumbotron display-4" style="width:100%; height:200px">THE CART HERE... Con calma</div>                    
+                    <div class="jumbotron w-100 p-auto">
+                        <div class="row pt-3">
+                            <div class="col p-0 text-left">Items</div>
+                            <div class="col p-0 text-right"><?php echo $cart['items']; ?></div>
+                        </div>
+                        <div class="row py-3">
+                            <div class="col-8 p-0 text-capitalize text-left">Australian delivery</div>
+                            <div class="col-4 p-0 text-uppercase text-right">Free</div>
+                        </div>
+                        <div class="row pt-3 border-dark border-top">
+                            <div class="col p-0 text-left font-weight-bold h5">Total AUD</div>
+                            <div class="col p-0 text-right font-weight-bold h5">$<?php echo $cart['total']; ?></div>
+                        </div>
+                    </div>  
+                    
+                    <button type="button" id="guest_checkout" class="btn btn-info w-100 text-uppercase my-2 p-2">
+                        Checkout as a guest
+                    </button>
+                    <button type="button" id="signIn_checkout" class="btn btn-info w-100 text-uppercase my-2 p-2">
+                        Sign In for faster checkout
+                    </button>               
                 </div>
 
                 <!-- SHIPPING -->
                 <div class="col-sm-4 px-5">
-                    <p class="h4 text-center text-capitalize mx-auto mb-0 py-5">Billing info</p>
+                    <p class="h4 text-center text-capitalize m-auto py-5">Billing info</p>
                                                 
                         <div class="form-group" id="locationField">
                             <label class="text-uppercase h6">Enter your address</label>
@@ -89,19 +111,14 @@
                             <div class="form-group">
                                 <label class="text-uppercase h6">Country</label>
                                 <input type="text" class="form-control" id="country" placeholder="Country" />
-                            </div>
-                            
-                            <button type="button" id="stripe_checkout" class="btn btn-primary w-100 text-uppercase">
-                                <div class="d-inline align-middle">Checkout with </div>
-                                <i class="fab fa-stripe fa-3x align-middle"></i>
-                            </button>            
+                            </div>          
                         </form>
                 </div>
                     
                 <!-- PAYMENT -->
-                <div class="col-sm-4 px-5">
-                    <p class="h4 text-center text-capitalize m-auto">Credit card info</p>
-                    <form class="py-5" role="form" id="form-payment" method="POST">
+                <div class="col-sm-4 px-5" id="payment">
+                    <p class="h4 text-center text-capitalize m-auto py-5">Credit card info</p>
+                    <form class="form-group" role="form" id="form-payment" method="POST">
                         
                         <div class="form-group">
                             <label class="text-uppercase h6">Card Number</label>
@@ -123,7 +140,7 @@
                             <input type="text" class="form-control" id="cvv"/>
                         </div>
 
-                        <button type="button" id="card_checkout" class="btn btn-primary w-100 text-uppercase">
+                        <button type="button" id="card_checkout" class="btn btn-info w-100 text-uppercase">
                             Confirm order
                         </button>            
                     </form>
@@ -171,12 +188,35 @@
                 zipCode: true,
                 amount: 2000
         });
-        e.preventDefault();
+        e.prevendivefault();
         });
 
         // Close Checkout on page navigation:
         window.addEventListener('popstate', function() {
             handler.close();
+        });
+
+        $('.back').hover(function(){
+            $('.back').tooltip('show');
+        },
+        function(){
+            $('.back').tooltip('hide');
+        });
+
+        if(user_id == null || user_id === ""){
+            $("#guest_checkout").attr("disabled", false);
+            $("#signIn_checkout").attr("disabled", false);
+        }else{
+            $("#guest_checkout").attr("disabled", true);
+            $("#signIn_checkout").attr("disabled", true);
+            $("#progress").attr("style","width:66%");
+        }
+
+        $("#payment").hide();
+        
+        $("#address").on("change input",function(){
+            $("#progress").attr("style","width:90%");
+            $("#payment").slideDown("slow");
         });
     </script>
 </body>
