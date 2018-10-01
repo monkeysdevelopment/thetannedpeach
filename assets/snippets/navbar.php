@@ -11,9 +11,6 @@
   <div class="collapse navbar-collapse" id="navbarVerde">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="#">NEW IN</a>
-      </li>
-      <li class="nav-item">
         <a class="nav-link" href="products.php">CLOTHING</a>
       </li>
       </li>
@@ -41,7 +38,7 @@
             {?>
 
                 <button type="button" class="btn btn-link nav-link dropdown-toggle" id="navbarAccount" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="fas fa-user-cog fa-lg"></i>
+                  <i class="fas fa-user-cog fa-lg" id="user_icon" data-toggle="tooltip" data-placement="left" title="Welcome back, <?php echo $_SESSION['fname']; ?>"></i>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="navbarAccount">
                   <a class="dropdown-item disabled text-capitalize" href="#"><?php echo $_SESSION['fname']; ?></a>
