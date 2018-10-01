@@ -2,11 +2,11 @@
 	require_once('assets/snippets/check_session.php'); 
 
 	require_once('assets/snippets/db.php');
+
 	$user_id = $_SESSION['user_id']; 
 	//retriving the bag info to display
 	$sql_get_bag = "SELECT bag.bag_id, item.item_id as item_id, image.url , item.name, size.size_id as size,item.price, size.name as size_name from image inner JOIN item on item.item_id = image.item_id INNER JOIN bag ON bag.item_id = item.item_id INNER JOIN size on size.size_id = bag.size_id WHERE bag.user_id= $user_id and image.url LIKE  '%a.%' GROUP by item.item_id, size.size_id";
     $result_bag = $connect->query($sql_get_bag);
-	
 ?>	
 
 <!DOCTYPE html>
@@ -27,9 +27,13 @@
     <link rel="stylesheet" href="assets/css/custom.css">
     <link rel="stylesheet" href="assets/css/cart.css">	
     <title>Verde - Bag</title>
+<<<<<<< HEAD
 		<script>
 			var user_id = <?php echo $_SESSION['user_id']; ?>;
 		</script>
+=======
+
+>>>>>>> 1f4ce067b9840f10cb37fd634b41e1e2997be60d
   </head>
 
   <body>
@@ -51,6 +55,7 @@
 
         </div>
       </div>
+<<<<<<< HEAD
 		</header>
 		<div id="favSidenav" class="sidenav">
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">
@@ -62,6 +67,9 @@
         <div class="pt-4 sidebar"></div>
       </div>
     </div>
+=======
+    </header>
+>>>>>>> 1f4ce067b9840f10cb37fd634b41e1e2997be60d
 
     <!-- main -->
     <main class="col-sm-10">
@@ -147,6 +155,7 @@
 
     <!-- Newsletter content over -->
     <?php include('assets/snippets/footer.php'); ?>
+<<<<<<< HEAD
 		
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -158,6 +167,10 @@
 		<script src="assets/js/favorite.js" type="text/javascript"></script>
 		
 		<script>
+=======
+	
+	<script>
+>>>>>>> 1f4ce067b9840f10cb37fd634b41e1e2997be60d
 		function deleteItem(user,item,size,bag,price) {//elimina 1 elemento
 			$.ajax({
 				url: 'assets/snippets/delete_it_cart.php',
@@ -238,8 +251,11 @@
 				success: function(result) {
 					console.log(result);
 					var fin_tot_qty = ini_tot_qty - qty_deleted;
+<<<<<<< HEAD
 					console.log(fin_tot_qty);
 					
+=======
+>>>>>>> 1f4ce067b9840f10cb37fd634b41e1e2997be60d
 					$(".tot-quantity").text(fin_tot_qty);
 					var fin_tot = ini_tot - tot_deleted;
 					$(".total").text(fin_tot);
@@ -254,6 +270,7 @@
 		function Checkout() {
 			var user_id = <?php echo $_SESSION['user_id']; ?>;
 			var qty = $(".tot-quantity").text();
+<<<<<<< HEAD
 			var int_qty = parseInt(qty);
 			var tot = $(".total").text();
 			var int_tot = parseInt(tot);
@@ -263,5 +280,23 @@
 		
 		
 	</script> 
+=======
+			var tot = $(".total").text();
+			//passing data to the checkout page
+			window.location.href = "checkout.php?user=" + user_id + "&items=" + qty + "&total=" + tot;
+        }
+		
+		
+	</script> 
+		
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <!-- Custom Js -->
+    <script src="assets/js/scrollbar.js" type="text/javascript"></script>
+    <script src="assets/js/validation.js" type="text/javascript"></script>
+    <script src="assets/js/account.js" type="text/javascript"></script>
+>>>>>>> 1f4ce067b9840f10cb37fd634b41e1e2997be60d
 </body>
 </html>
