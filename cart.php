@@ -186,8 +186,8 @@
 						$(".tot-quantity").text(fin_tot_qty);
 						var fin_tot = ini_tot - price;
 						$(".total").text(fin_tot);
-						$("#rowitem-"+bag).find(".cart_qty").text(final_qty);	
-						$("#rowitem-"+bag).find(".cart_amount").text(final_prc);
+						// $("#rowitem-"+bag).find(".cart_qty").text(final_qty);	
+						// $("#rowitem-"+bag).find(".cart_amount").text(final_prc);
 					}						
 				},
 				error: function(err) {

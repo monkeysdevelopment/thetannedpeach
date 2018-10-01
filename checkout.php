@@ -218,6 +218,21 @@
             $("#progress").attr("style","width:90%");
             $("#payment").slideDown("slow");
         });
+
+        // TODO: menu needs to stay visibile until user click out
+        $('.bag').click(function(){
+            $(this).slideDown("slow");
+            $(this).tooltip('show');
+            $('.tooltip-inner').css('min-width', '400px');
+            $('.tooltip-inner').css('min-height', '500px');
+            $('.tooltip-inner').css('background-color', '#00000000');
+            $('.tooltip-inner').css('color', '#FFF');
+            $.get("assets/snippets/show_bag.php")
+                .done(function(result){
+                $('.tooltip-inner').html(result);
+            });
+        });
+
     </script>
 </body>
 </html>
