@@ -2,16 +2,16 @@
 -- version 4.7.7
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Sep 26, 2018 at 10:58 AM
+-- Host: localhost
+-- Generation Time: Oct 01, 2018 at 10:26 AM
 -- Server version: 5.6.38
--- PHP Version: 7.1.12
+-- PHP Version: 7.2.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 --
--- Database: `verde`
+-- Database: `Verde`
 --
 
 -- --------------------------------------------------------
@@ -324,6 +324,15 @@ CREATE TABLE `purchase` (
   `shipped_date` date NOT NULL,
   `tracking_number` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `purchase`
+--
+
+INSERT INTO `purchase` (`purchase_id`, `user_id`, `amount`, `fullname`, `full_address`, `suburb`, `state`, `postal`, `phone`, `date`, `shipped_date`, `tracking_number`) VALUES
+(1, 4, 99.00, 'Charlie Chiu', '47 User Rd', 'St Kilda', 'VIC', 3182, '123456', '2018-10-01 06:01:43', '2018-09-18', 123456),
+(2, 4, 109.00, 'Charlie Chiu', '47 User Rd', 'St Kilda', 'VIC', 3182, '123456', '2018-10-01 08:30:08', '2018-10-01', 234567),
+(3, 5, 219.00, 'Charlie Chiu', '47 Test Rd', 'St Kilda', 'VIC', 3182, '123456', '2018-10-01 09:18:53', '2018-09-30', 345678);
 
 -- --------------------------------------------------------
 
@@ -663,7 +672,9 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`user_id`, `email`, `password`, `fname`, `surname`, `add_full`, `add_suburb`, `add_state`, `add_postal`, `phone`, `registration_date`) VALUES
 (1, 'admin@admin.com', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'admin', 'strator', '13 admin road', 'Melbourne', 'VIC', 3000, '0404040404', '2018-08-06 00:43:11'),
 (2, 'test@test.net', 'b444ac06613fc8d63795be9ad0beaf55011936ac', 'test', 'test', 'via dalle palle', 'milano', 'ita', 3102, '0303020402', '2018-08-21 12:30:59'),
-(3, 'user@email.com', 'bb70729af79c563675e873ec7d6d3a63cb5dab28', 'User', '', '', '', '', 0, '', '2018-09-08 07:55:39');
+(3, 'user@email.com', 'bb70729af79c563675e873ec7d6d3a63cb5dab28', 'User', '', '', '', '', 0, '', '2018-09-08 07:55:39'),
+(4, 'charlie@gmail.com', '123456', 'Charlie', 'Chiu', '47 User Rd', 'St Kilda', 'VIC', 3182, '123456', '2018-10-01 05:59:11'),
+(5, 'test@test.com', '4d9012b4a77a9524d675dad27c3276ab5705e5e8', 'Test Chiu', '', '', '', '', 0, '', '2018-10-01 09:17:32');
 
 --
 -- Indexes for dumped tables
@@ -777,7 +788,7 @@ ALTER TABLE `item`
 -- AUTO_INCREMENT for table `purchase`
 --
 ALTER TABLE `purchase`
-  MODIFY `purchase_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `purchase_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `purchase_items`
@@ -801,7 +812,7 @@ ALTER TABLE `stock`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `user_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables

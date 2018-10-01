@@ -1,27 +1,22 @@
 <?php
+  if(!isset($_POST['submit']))
+  {
+  	echo "Error, please submit the form to proceed!";
+  }
 
+  $name = $_POST['name'];
+  $visitor_email = $_POST['email'];
+  $phone = $_POST['phone'];
+  $message = $_POST['message'];
 
-require('db.php');
+  $email_from = 'verde.com.au';
+  $email_subject = "NEW FORM SUBMISSION";
+  $email_body = "You have received a new message from the user $name. \n\n". "Message content: \n $message. \n\n"."From email: $visitor_email. \n\n".
 
-
-extract($_POST);
-
-
-$sql = "INSERT into contactus (name,email,message,created_date) VALUES('" . $name . "','" . $email . "','" . $message . "','" . date('Y-m-d') . "')";
-
-
-$success = $mysqli->query($sql);
-
-
-if (!$success) {
-    die("Submission failed, please try again.".$mysqli->error);
-}
-
-
-echo "Thank You For contacting us, our customer servicing team will get in touch with you ASAP. ";
-
-
-$conn->close();
-
+  $to = "6590@ait.nsw.edu.au";
+  $headers = "From: $email_from \r\n";
+  $headers .= "Reply-To: $visitor_email \r\n";
+  mail($to,$email_subject,$email_body,$headers);
+  header('Location: thank-you.html');
 
 ?>
