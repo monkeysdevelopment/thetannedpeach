@@ -1,5 +1,32 @@
 # thetannedpeach
+03/10/2018
+You need to change in the DB the tracking number from int to <b>BIG INT</b>.
+The max number from 4 bytes (which is int is 2147483647). We had a problem for that reason since our tracking number is 11 long.
 
+The quantity is still NOT decreasing. For testing purposes I didn't create the function to delete the items from the stock table. It's not been implemented. 
+
+The new updates consists of:
+- Checkout is finally working
+- It actively delete all the items in the bag of the user, creating a purchase record and create records of purchased items.
+
+
+<b>WHAT WE NEED TO DO BEFORE THE 10th</b>
+
+The favorite needs to transfer to bag if the customer wishes. 
+The bag delete function works in the cart page but not yet in the bag view from the icon.
+The badge for the bag works only in the checkout page at the moment.
+The website generally shrinks a bit badly. On mobile devices will probably break.
+It's easy to fix I guess. All css needs the media query.
+We need to improve general navigation to make an easy experience for the users.
+Adding to bag shouldn't bounce the user to 3 different pages before realizing that is heading to the checkout.
+We need more links to go back to previous page or products page.
+
+If there is anything I forgot please let me know. 
+
+Thanks
+
+
+--------------------------------------------------------------------------
 02/09/2018
 
 Pushed the newer version of the website. 
