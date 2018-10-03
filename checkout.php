@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="assets/jquery-ui/jquery-ui.min.css">
   <link rel="stylesheet" href="assets/css/custom.css">
   <link rel="stylesheet" href="assets/css/checkout.css">
+
   <title>Verde - Checkout</title>
   <script>
     var user_id = <?php echo $_SESSION['user_id']; ?>;
@@ -53,7 +54,7 @@
                 <!-- ORDER -->
                 <?php include('assets/snippets/get_cart.php'); ?>
                 <div class="col-sm-4 px-5">
-                    <p class="h4 text-center text-capitalize m-auto py-5">Your cart</p>
+                    <p class="h4 text-center text-capitalize m-auto py-3">Your cart</p>
                     <div class="jumbotron w-100 p-auto">
                         <div class="row pt-3">
                             <div class="col p-0 text-left">Items</div>
@@ -79,7 +80,7 @@
 
                 <!-- SHIPPING -->
                 <div class="col-sm-4 px-5">
-                    <p class="h4 text-center text-capitalize m-auto py-5">Billing info</p>
+                    <p class="h4 text-center text-capitalize m-auto py-3">Billing info</p>
                                                 
                         <div class="form-group" id="locationField">
                             <label class="text-uppercase h6">Enter your address</label>
@@ -117,38 +118,43 @@
                     
                 <!-- PAYMENT -->
                 <div class="col-sm-4 px-5" id="payment">
-                    <p class="h4 text-center text-capitalize m-auto py-5">Credit card info</p>
+                    <p class="h4 text-center text-capitalize m-auto py-3">Credit card info</p>
                     <form class="form-group" role="form" id="form-payment" method="POST">
-                        
-                        <div class="form-group">
-                            <label class="text-uppercase h6">Card Number</label>
-                            <input type="text" class="form-control" id="card"/>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="text-uppercase h6">Card Holder Name</label>
-                            <input type="text" class="form-control" id="card_name"/>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="text-uppercase h6">Expiry Date</label>
-                            <input type="text" class="form-control" id="expiry_date"/>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="text-uppercase h6">cvv</label>
-                            <input type="text" class="form-control" id="cvv"/>
-                        </div>
-
                         <button type="button" id="card_checkout" class="btn btn-info w-100 text-uppercase">
                             Confirm order
-                        </button>            
+                        </button>
+                        <p class="font-italic text-muted pt-3" style="font-size:12px;">Powered by Stripe</p>            
                     </form>
                 </div>
             </div>
         </div>
 
     </main>
+
+    <!-- Thank you Modal -->
+    <div class="modal fade" id="thankYou" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <button type="button" class="close text-right p-3" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="modal-body text-center">
+                    <i class="fal fa-check-circle fa-5x"></i>
+                    <h4 class="text-capitalize p-3">Thank you!</h4>
+                    <p>
+                        Your order was placed successfully.<br>
+                        You will receive a confirmation shortly on <?php echo $_SESSION['email']; ?>
+                    </p>
+                    <strong>Order number: <p class="order_n"></p></strong>
+                </div>
+                <div class="text-uppercase text-center pt-2 pb-5">
+                    <a role="button" href="products.php" class="btn btn-info"><i class="material-icons align-middle">keyboard_arrow_left</i>Keep shopping</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <!-- Footer content -->
     <?php include('assets/snippets/footer.php'); ?>
 
@@ -167,32 +173,37 @@
     <script src="assets/js/autocomplete.js" type="text/javascript"></script>
     <script src="https://checkout.stripe.com/checkout.js"></script>
     <script src="assets/js/favorite.js" type="text/javascript"></script>
+     <!-- Stripe.js v3 for Elements -->
+  <script src="https://js.stripe.com/v3/"></script>
 
     <script>
         var handler = StripeCheckout.configure({
             key: 'pk_test_awPzaPF3gNjUL2vCL1IlEYtF',
-            image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+            image: '',
             locale: 'auto',
             token: function(token) {
                 // You can access the token ID with `token.id`.
                 // Get the token ID to your server-side code for use.
+                console.log("Token ID: "+token.id);
+                thankYou();
             }
         });
 
-        $('#stripe_checkout').click(function(e) {
+        $('#card_checkout').click(function(e) {
             // Open Checkout with further options:
             handler.open({
                 name: 'Verde',
                 description: 'Your sustainable clothing',
+                email: '<?php echo $_SESSION['email']; ?>',
                 currency: 'aud',
-                zipCode: true,
-                amount: 2000
-        });
-        e.prevendivefault();
+                amount: (<?php echo $cart['total'];?>)*100
+            });
+            e.preventDefault();
         });
 
         // Close Checkout on page navigation:
         window.addEventListener('popstate', function() {
+            console.log("I'm here");
             handler.close();
         });
 
@@ -218,6 +229,67 @@
             $("#progress").attr("style","width:90%");
             $("#payment").slideDown("slow");
         });
+
+        var isToolTipShown = false;
+
+        $('body').on('click', function(e){
+            if( !e.target.classList.contains('bag') ){
+                $('.bag').tooltip('hide');
+                isToolTipShown = false;
+            } else {
+                if(isToolTipShown){
+                    $('.bag').tooltip('hide');
+                    isToolTipShown = false;
+                } else {
+                    $('.bag').tooltip('show');
+                    $('.tooltip-inner').css('min-width', '400px');
+                    $('.tooltip-inner').css('min-height', '500px');
+                    $('.tooltip-inner').css('background-color', '#00000000');
+                    $('.tooltip-inner').css('color', '#FFF');
+                    $.get("assets/snippets/show_bag.php")
+                        .done(function(result){
+                        $('.tooltip-inner').html(result);
+                        });
+
+                    isToolTipShown = true;
+
+                } 
+            }
+                    
+        });
+
+        //Assign badbe to id count_bag
+        $('#count_bag').html(<?php echo $cart['items'];?>);
+        
+        function thankYou(){
+            // Finalize front-end
+            
+            // Create number for the order of 11 digits
+            var order_n = Math.floor((Math.random() * 99999999999) + 1000000000);
+            $('.order_n').text(order_n);
+            $('#thankYou').modal('show');
+            $("#progress").attr("style","width:100%");
+
+            //Process back-end
+            //Add record to Purchase
+            $.get({
+                url: "assets/snippets/add_purchase.php", 
+                cache: false, 
+                data: { amount: "<?php echo $cart['total'];?>" , tracking: order_n}})
+                .done(function(result_add){
+                    console.log("Result: "+result_add);
+                });
+            // Delete order from Bag
+            $.get("assets/snippets/delete_bag.php")
+                .done(function(result_del){
+                    console.log("Result: "+result_del);
+                    // Find way to check again for the badge on bag icon
+            });
+        }
+
+        
+        
+
     </script>
 </body>
 </html>
