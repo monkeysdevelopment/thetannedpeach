@@ -10,7 +10,7 @@
             $bag_items = <<<DELIMITER
                 <div class="row p-3" id="rowbag-{$row_bag['bid']}">
                     <div class="col-10">
-                    <a class="px-0" href="product-detail.php?var={$row_bag['iid']}">
+                    <a class="px-0" href="product-detail.php?var={$row_bag['iid']}" id="bag">
                     <div class="row">
                         <div class="col-4 p-0 text-center">
                         <img class="image" height="100px" src="{$row_bag['image']}">

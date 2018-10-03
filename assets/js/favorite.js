@@ -20,11 +20,6 @@
 
       //on hover check if already favorite
       hoverFav();
-
-      $("#user_icon").tooltip('show');
-      setTimeout(function(){
-        $("#user_icon").tooltip('dispose');
-      }, 3000);
       
     });
 

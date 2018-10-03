@@ -28,7 +28,6 @@
         <span class="result">
         </span>
       </div>
-
     <ul class="navbar-nav mt-2 mt-lg-0 mr-0">
       <li class="nav-item dropdown">
         <!-- Button trigger modal -->
@@ -36,9 +35,9 @@
           <?php
             if($logged)
             {?>
-
                 <button type="button" class="btn btn-link nav-link dropdown-toggle" id="navbarAccount" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="fas fa-user-cog fa-lg" id="user_icon" data-toggle="tooltip" data-placement="left" title="Welcome back, <?php echo $_SESSION['fname']; ?>"></i>
+                  <span class="text-capitalize"><?php echo $_SESSION['fname']." "; ?></span>
+                  <i class="fas fa-user-cog fa-lg" id="user_icon"></i>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="navbarAccount">
                   <a class="dropdown-item disabled text-capitalize" href="#"><?php echo $_SESSION['fname']; ?></a>
@@ -52,7 +51,7 @@
 
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <span class="nav-link">
             <?php
               if($logged)
               {?>
@@ -60,20 +59,20 @@
               <?php } else{ ?>
                 <i class="fas fa-heart fa-lg"></i>
                 <?php } ?>
-          </a>
+          </span>
         </li>
 
         <span class="count"><?php include('assets/snippets/count_fav.php'); ?></span>
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <span class="nav-link">
             <?php
               if($logged)
               {?>
-                <i class="fas fa-shopping-bag fa-lg bag" data-toggle="tooltip" data-placement="bottom" title="Title"></i><span class="badge badge-pill badge-danger" id="count_bag"></span>
+                <i class="fas fa-shopping-bag fa-lg bag" data-toggle="tooltip" data-placement="bottom" data-trigger="click" title="Title"></i><span class="badge badge-pill badge-danger" id="count_bag"></span>
               <?php } else{ ?>
                 <i class="fas fa-shopping-bag fa-lg"></i>
               <?php } ?>
-          </a>
+          </span>
         </li>
       </ul>
     </div>
