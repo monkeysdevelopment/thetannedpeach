@@ -1,22 +1,4 @@
-<?php
-
-session_start();
-
-  if( isset($_SESSION['fname']) )
-    {
-      if( count($_SESSION['fname']) > 0 )
-      {
-        $logged = true;
-      } else {
-        $logged = false;
-      }
-    } else {
-      $logged = false;
-    }
-
-?>
-
-
+<?php include('assets/snippets/check_session.php'); ?>
 
 <!doctype html>
 <html lang="en">
@@ -28,32 +10,42 @@ session_start();
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <!--     Fonts and icons     -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cantata+One|Roboto|Material+Icons" /><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-<!--   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-TXfwrfuHVznxCssTxWoPZjhcss/hp38gEOH8UPZG/JcXonvBQ6SlsIF49wUzsGno" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cantata+One|Roboto|Material+Icons" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-TXfwrfuHVznxCssTxWoPZjhcss/hp38gEOH8UPZG/JcXonvBQ6SlsIF49wUzsGno" crossorigin="anonymous">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/css/contact-us.css">
     <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="stylesheet" href="assets/css/contact-us.css">
 
-    <title>Verde - Sustainable Fashion</title>
-      
-    
+    <title>Verde - Contact Us</title>
+    <script>
+      var user_id = <?php echo $_SESSION['user_id']; ?>;
+    </script>
+
   </head>
   <body>
-      
+
       <!-- Google map content-->
       <div class="map-container"><div id="map"></div></div>
-   
-      
+
+
     <?php include('assets/snippets/navbar.php'); ?>
     <!-- Navbar content over -->
-      
-      
+    <div id="favSidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">
+        <i class="fal fa-times fa-2x"></i>
+      </a>
+
+      <div id="fav_items">
+        <h4 class="text-light text-uppercase text-center pb-4 border-bottom"><i class="material-icons">favorite</i> My favorite</h4>
+        <div class="pt-4 sidebar"></div>
+      </div>
+    </div>
+
   <!-- Contact us content -->
     <div class="main-raised-box">
         <div class="contact-content">
           <div class="container">
-            <h1>CONTACT US</h1><br>
+            <h1 style="font-family: 'Cantata One', serif;" align="center" class="pb-5">CONTACT US</h1><br>
             <div class="row">
               <div class="col-md-6">
                 <p class="description">Leave us a message below and our customer service team will get in touch with you as soon as possible.
@@ -78,7 +70,7 @@ session_start();
                     <textarea class="form-control" rows="6" id="message"></textarea>
                   </div>
                   <div class="submit text-left">
-                    <input type="submit" class="btn btn-secondary btn-LG" value="SUBMIT"> 
+                    <input type="submit" class="btn btn-secondary btn-LG" value="SUBMIT">
                   </div>
                 </form>
               </div>
@@ -153,11 +145,12 @@ session_start();
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <!-- Custom Js -->
     <script src="assets/js/scrollbar.js" type="text/javascript"></script>
-    <script src="assets/js/carousel.js" type="text/javascript"></script>
+    <script src="assets/js/search.js" type="text/javascript"></script>
     <script src="assets/js/validation.js" type="text/javascript"></script>
-    <script src="assets/js/account.js" type="text/javascript"></script>
     <script src="assets/js/image-hover.js" type="text/javascript"></script>
     <script src="assets/js/googlemap.js" type="text/javascript"></script>
+    <script src="assets/js/favorite.js" type="text/javascript"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfeX-6GJw9JIo_fWqfLFiYa8hwXcZotwo&callback=initMap"></script>
+
   </body>
 </html>

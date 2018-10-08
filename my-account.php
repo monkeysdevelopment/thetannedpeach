@@ -1,4 +1,22 @@
-<?php include('assets/snippets/check_session.php'); ?>
+<?php
+  require_once('assets/snippets/check_session.php');
+  require_once('assets/snippets/db.php');
+
+  // print order
+    $user_id = $_SESSION['user_id'];
+
+    //display CURRENT user's order records from table purchase BUT not sure if the session works as I fail logging in..
+    //$sql_print_order = "SELECT * FROM purchase WHERE user_id = $user_id";
+
+    //display ALL order records from table purchase
+    $sql_print_order = "SELECT * FROM purchase";
+    $result_print_order = mysqli_query($connect, $sql_print_order) or die ("error");
+
+  // print username in header
+    $sql_print_username = "SELECT fname FROM user WHERE user_id = 4";
+    $result_print_username = mysqli_query($connect, $sql_print_username) or die ("error")
+?>
+
 
 <!doctype html>
 <html lang="en">
@@ -10,70 +28,65 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <!--     Fonts and icons     -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cantata+One|Roboto|Material+Icons" />
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-TXfwrfuHVznxCssTxWoPZjhcss/hp38gEOH8UPZG/JcXonvBQ6SlsIF49wUzsGno" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cantata+One|Roboto|Material+Icons" /><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+<!--   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-TXfwrfuHVznxCssTxWoPZjhcss/hp38gEOH8UPZG/JcXonvBQ6SlsIF49wUzsGno" crossorigin="anonymous"> -->
     <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/my-account.css">
     <link rel="stylesheet" href="assets/css/custom.css">
-    <link rel="stylesheet" href="assets/css/about-us.css">
+
+    <title>Verde - My Account</title>
 
 
-    <title>Verde - About Verde</title>
-    <script>
-      var user_id = <?php echo $_SESSION['user_id']; ?>;
-    </script>
   </head>
   <body>
+
     <?php include('assets/snippets/navbar.php'); ?>
     <!-- Navbar content over -->
-    <div id="favSidenav" class="sidenav">
-      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">
-        <i class="fal fa-times fa-2x"></i>
-      </a>
 
-      <div id="fav_items">
-        <h4 class="text-light text-uppercase text-center pb-4 border-bottom"><i class="material-icons">favorite</i> My favorite</h4>
-        <div class="pt-4 sidebar"></div>
-      </div>
-    </div>
     <!-- Banner image -->
-    <section id="banner">
-    <img src="assets/images/banner01.jpg">
-    </section>
+    <div id="banner">
+      <img src="assets/images/banner04.jpg">
+    </div>
 
-   <!-- About us content -->
-   <main>
-   <div class="main-raised-box">
-       <div class="aboutus">
-         <h1 style="font-family: 'Cantata One', serif;">ABOUT VERDE</h1><br>
-         <p>Verde means “green” in Italian, as the name implies,  Verde is an e-commerce website that sells fashionable yet sustainable clothing which aims to be our customers’ “sustainable closet”. Our website offers women clothing includes tops, dresses, skirts, pants, jackets, shoes and accessories. We love shopping but we feel guilty, Verde is the solution as the fabrics we use come from eco-friendly resources.<br><br>
-         </p>
-
-         <h3 style="font-family: 'Cantata One', serif;">#sustainablefashion<br><br></h3>
-
-
-       <div class="propic">
+    <div class="main-raised-box">
         <div class="container">
+          <!-- My profile header -->
           <div class="row">
-            <div class="col-sm">
-              <img id = "propic1" alt = "" src = "assets/images/about-us/about-us01.jpg">
-            </div>
-            <div class="col-sm">
-              <img id = "propic2" alt = "" src = "assets/images/about-us/about-us02.jpg">
-            </div>
-            <div class="col-sm">
-              <img id = "propic3" alt = "" src = "assets/images/about-us/about-us03.jpg">
+            <div class="col-12">
+                <div align="center">
+                  <img class="avatar-img rounded-circle" src="assets/images/about-us/about-us03.jpg" alt="Avatar">
+                </div>
+                <div class="name">
+                  <h3 class="title text-center text-uppercase">Charlie Chiu</h3>
+                  <h6 class="text-center">St Kilda, VIC 3182</h6>
+                </div>
             </div>
           </div>
-         </div>
+  	<hr>
+
+        <!--My orderes-->
+          <div class="col-12 px-4">
+            <h1 style="font-family: 'Cantata One', serif;" align="center" class="py-4">MY ORDERS</h1><br>
+              <?php
+                echo"<table class=table col>";
+                echo"<tr><td>Order ID</td><td>Amount</td><td>Shipped Date</td><td>Tracking #</td><tr>";
+                while($row = mysqli_fetch_assoc($result_print_order))
+                {
+                  echo"<tr><td>{$row['purchase_id']}</td><td>AUD$.{$row['amount']}</td><td>{$row['shipped_date']}</td><td>#{$row['tracking_number']}</td><tr>";
+                }
+                  echo"</table>";
+              ?>
+          </div>
+          </div>
         </div>
-
-
-        <h3 style="font-family: 'Cantata One', serif;">Interested in collaboration?<br><br></h3>
-        <a href="contact-us.php" class="btn btn-secondary btn-LG">CONTACT US</a>
-
-        </div>
+      </div>
     </div>
-    </main>
+          </div>
+        </div>
+      </div>
+      <!--section over-->
+
 
 
   <!-- Newsletter content -->
@@ -112,9 +125,11 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <!-- Custom Js -->
     <script src="assets/js/scrollbar.js" type="text/javascript"></script>
+    <script src="assets/js/carousel.js" type="text/javascript"></script>
     <script src="assets/js/validation.js" type="text/javascript"></script>
+    <script src="assets/js/account.js" type="text/javascript"></script>
     <script src="assets/js/image-hover.js" type="text/javascript"></script>
-    <script src="assets/js/search.js" type="text/javascript"></script>
-    <script src="assets/js/favorite.js" type="text/javascript"></script>
+    <script src="assets/js/googlemap.js" type="text/javascript"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfeX-6GJw9JIo_fWqfLFiYa8hwXcZotwo&callback=initMap"></script>
   </body>
 </html>
