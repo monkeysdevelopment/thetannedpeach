@@ -5,9 +5,6 @@
     $amount = $_GET['amount'];
     $tracking = $_GET['tracking'];
 
-    echo  $tracking;
-    die;
-
     // Fetch User details from User table
     $sql_user = "SELECT * FROM user WHERE user_id=?";
 

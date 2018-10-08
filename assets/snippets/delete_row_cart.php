@@ -6,7 +6,6 @@
 	$size = $_GET['size'];
 	
     $sql_delete_row_from_cart = "DELETE FROM bag WHERE user_id = $user and item_id = $item and size_id = $size";
-	echo $sql_delete_row_from_cart;
 	
     $result_del = $connect->query($sql_delete_row_from_cart);
 	

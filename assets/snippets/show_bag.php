@@ -4,7 +4,6 @@
 
     $sql_bag="SELECT bag.bag_id as bid, bag.user_id as uid, bag.item_id as iid, item.name as name, item.price as price, image.url as image FROM bag INNER JOIN item ON bag.item_id = item.item_id INNER JOIN image ON bag.item_id = image.item_id WHERE bag.user_id = 2 AND url LIKE '%a.%' GROUP BY bag.item_id";
     $result_bag_menu = $connect->query($sql_bag);
-    echo "<h4><i class='material-icons pb-4'>favorite</i> My Bag</h4>";
     if($result_bag_menu->num_rows > 0) {
         while($row_bag = $result_bag_menu->fetch_assoc()) {
             $bag_items = <<<DELIMITER
@@ -22,7 +21,7 @@
                     </a>
                     </div>
                     <div class="col-2">
-                    <a href="#" class="p-0" onclick="deleteFavItem({$row_bag['iid']}, $user_id)"><i class="fal fa-times"></i></a>
+                    <a href="#" class="p-0" onclick="deleteItemBag({$row_bag['iid']})"><i class="fal fa-times"></i></a>
                     </div>
                 </div>
 DELIMITER;

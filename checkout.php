@@ -27,16 +27,29 @@
         <!-- navbar -->
         <?php include('assets/snippets/navbar.php'); ?>
     </header>
+    <!-- Fav -->
     <div id="favSidenav" class="sidenav">
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">
         <i class="fal fa-times fa-2x"></i>
       </a>
-
       <div id="fav_items">
         <h4 class="text-light text-uppercase text-center pb-4 border-bottom"><i class="material-icons">favorite</i> My favorite</h4>
         <div class="pt-4 sidebar"></div>
       </div>
     </div>
+
+    <!-- Bag -->
+    <div id="bagSidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeBag()">
+        <i class="fal fa-times fa-2x"></i>
+      </a>
+
+      <div id="bag_items">
+        <h4 class="text-light text-uppercase text-center pb-4 border-bottom"><i class="material-icons">favorite</i> My Bag</h4>
+        <div class="pt-4 bagSidebar"></div>
+      </div>
+    </div>
+
     <main>
         <a href="cart.php"><i class="material-icons align-middle text-dark back" data-toggle="tooltip" data-placement="right" title="Back to cart">arrow_back</i></a>
         <div id="bar">
@@ -173,6 +186,7 @@
     <script src="assets/js/autocomplete.js" type="text/javascript"></script>
     <script src="https://checkout.stripe.com/checkout.js"></script>
     <script src="assets/js/favorite.js" type="text/javascript"></script>
+    <script src="assets/js/bag.js" type="text/javascript"></script>
      <!-- Stripe.js v3 for Elements -->
   <script src="https://js.stripe.com/v3/"></script>
 
@@ -203,7 +217,6 @@
 
         // Close Checkout on page navigation:
         window.addEventListener('popstate', function() {
-            console.log("I'm here");
             handler.close();
         });
 
@@ -250,16 +263,14 @@
                         .done(function(result){
                         $('.tooltip-inner').html(result);
                         });
-
                     isToolTipShown = true;
-
                 } 
-            }
-                    
+            }    
         });
 
-        //Assign badbe to id count_bag
-        $('#count_bag').html(<?php echo $cart['items'];?>);
+        // TODO: Call delete function from the bagView
+
+        
         
         function thankYou(){
             // Finalize front-end
@@ -286,10 +297,6 @@
                     // Find way to check again for the badge on bag icon
             });
         }
-
-        
-        
-
     </script>
 </body>
 </html>

@@ -68,7 +68,7 @@
             <?php
               if($logged)
               {?>
-                <i class="fas fa-shopping-bag fa-lg bag" data-toggle="tooltip" data-placement="bottom" data-trigger="click" title="Title"></i><span class="badge badge-pill badge-danger" id="count_bag"></span>
+                <a class="nav-item nav-link" href="cart.php"><i class="fas fa-shopping-bag fa-lg bag"></i><span class="badge badge-pill badge-danger" id="count_bag"></span></a>
               <?php } else{ ?>
                 <i class="fas fa-shopping-bag fa-lg"></i>
               <?php } ?>

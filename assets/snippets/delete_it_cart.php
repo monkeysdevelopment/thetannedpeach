@@ -5,7 +5,6 @@
 	$item = $_GET['item'];
 	$size = $_GET['size'];
 	
-    //$sql_delete_from_bag = "DELETE FROM bag WHERE bag_id = $bag;";
 	$sql_delete_from_bag = "DELETE FROM bag WHERE user_id = $user and item_id = $item and size_id = $size LIMIT 1 ";
 	
     $result_del = $connect->query($sql_delete_from_bag);
@@ -14,6 +13,6 @@
         echo "Record was deleted successfully.";
     } 
     else{
-        echo "ERROR. could not delete the item. ". mysqli_error($link);
+        echo "ERROR. could not delete the item. ". mysqli_error($connect);
     }
 ?>
