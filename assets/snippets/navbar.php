@@ -11,24 +11,14 @@
   <div class="collapse navbar-collapse" id="navbarVerde">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="#">NEW IN</a>
+        <a class="nav-link" href="products.php">CLOTHING</a>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          CLOTHING
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Tops</a>
-          <a class="dropdown-item" href="#">Skirts</a>
-          <a class="dropdown-item" href="#">Jeans</a>
-          <a class="dropdown-item" href="#">Dresses</a>
-          <a class="dropdown-item" href="#">Skirts</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Shoes</a>
-        </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">ACCESSORIES</a>
+        <a class="nav-link" href="about-us.php">ABOUT US</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="contact-us.php">CONTACT US</a>
       </li>
     </ul>
 
@@ -38,7 +28,6 @@
         <span class="result">
         </span>
       </div>
-
     <ul class="navbar-nav mt-2 mt-lg-0 mr-0">
       <li class="nav-item dropdown">
         <!-- Button trigger modal -->
@@ -46,12 +35,14 @@
           <?php
             if($logged)
             {?>
-              <button type="button" class="btn btn-link nav-link dropdown-toggle" id="navbarAccount" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-user-cog fa-lg"></i>
+                <button type="button" class="btn btn-link nav-link dropdown-toggle" id="navbarAccount" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="text-capitalize"><?php echo $_SESSION['fname']." "; ?></span>
+                  <i class="fas fa-user-cog fa-lg" id="user_icon"></i>
+                </button>
                 <div class="dropdown-menu" aria-labelledby="navbarAccount">
+                  <a class="dropdown-item disabled text-capitalize" href="#"><?php echo $_SESSION['fname']; ?></a>
                   <a class="dropdown-item" href="logout.php">Log out</a>
                 </div>
-              </button>
               <?php
             }else{ ?>
               <button type="button" class="btn btn-link nav-link" data-toggle="modal" data-target="#accountModal">
@@ -60,28 +51,28 @@
 
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <span class="nav-link">
             <?php
               if($logged)
               {?>
-                  <i class="fas fa-heart fa-lg"></i><span class="badge badge-pill badge-danger" id="count_fav"></span>
+                  <i class="fas fa-heart fa-lg" onclick="openNav()"></i><span class="badge badge-pill badge-danger" id="count_fav"></span>
               <?php } else{ ?>
                 <i class="fas fa-heart fa-lg"></i>
                 <?php } ?>
-          </a>
+          </span>
         </li>
 
         <span class="count"><?php include('assets/snippets/count_fav.php'); ?></span>
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <span class="nav-link">
             <?php
               if($logged)
               {?>
-                <i class="fas fa-shopping-bag fa-lg"></i></span>
+                <a class="nav-item nav-link" href="cart.php"><i class="fas fa-shopping-bag fa-lg bag"></i><span class="badge badge-pill badge-danger" id="count_bag"></span></a>
               <?php } else{ ?>
                 <i class="fas fa-shopping-bag fa-lg"></i>
               <?php } ?>
-          </a>
+          </span>
         </li>
       </ul>
     </div>

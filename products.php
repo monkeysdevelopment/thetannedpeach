@@ -29,15 +29,19 @@
   <link rel="stylesheet" href="assets/css/productsPage.css">
   <title>Verde - Products</title>
 
+  <script>
+    var user_id = <?php echo $_SESSION['user_id']; ?>;
+  </script>
+
 </head>
 
 <body class="parallax">
-  <header class=" header">
+  <header class="header">
     <!-- navbar -->
    <?php include('assets/snippets/navbar.php'); ?>
     <br>
   	<div id="beginning_space"></div>
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center side">
 
   		<div class="ml-10 text-left">
   			<!-- Breadcrumbs -->
@@ -50,35 +54,22 @@
   			<!-- number of cards shown -->
 
         <!-- sorting -->
-
-  			<!-- pagination -->
-
-        <nav aria-label="Page navigation example">
-          <ul class="pagination m-0">
-            <li class="page-item disabled ">
-              <a class="page-link_ page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&lt;</span>
-                <span class="sr-only">Previous</span>
-              </a>
-            </li>
-            <li class="page-item disabled "><a class="page-link_ page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link_ page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link_ page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link_ page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&gt;</span>
-                <span class="sr-only">Next</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-
       </div>
   	</div>
   </header>
 <!-- main -->
-<main>
+<div id="favSidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">
+    <i class="fal fa-times fa-2x"></i>
+  </a>
 
+  <div id="fav_items">
+    <h4 class="text-light text-uppercase text-center pb-4 border-bottom"><i class="material-icons">favorite</i> My favorite</h4>
+    <div class="pt-4 sidebar"></div>
+  </div>
+</div>
+<main id="main">
+  <div id="cover"></div>
 <div class="container">
   <h2>What's new</h2>
   <div id="products-id" class="bg-transparent products-grid pr-0 ml-auto col-sm-9" >
@@ -122,13 +113,17 @@
 </div>
 
   <!-- Product grid -->
+
 <div class="container">
+<!-- pagination -->
+
   <h2>Find what you need</h2>
   <div class="row">
     <div  id="filters" class="col-sm-4">
       <?php include('assets/snippets/filters.php'); ?>
     </div>
     <div class="col-sm-8" >
+    <div class="pagination"></div>
       <div class="row m-0 p-0" id="filter_prods">
         <?php include('all_prod.php'); ?>
       </div>
@@ -153,61 +148,8 @@
     <script src="assets/js/carousel.js" type="text/javascript"></script>
     <script src="assets/js/validation.js" type="text/javascript"></script>
     <script src="assets/js/filters.js" type="text/javascript"></script>
-    <script src="assets/js/count_fav.js" type="text/javascript"></script>
     <script src="assets/js/search.js" type="text/javascript"></script>
-
-
-  <script>
-    $(document).ready(function(){
-      $('.fav').mouseenter(function(){
-        $(this).text("favorite");
-      });
-      $('.fav').mouseleave(function(){
-        $(this).text("favorite_border");
-      });
-
-    });
-
-    function favItem(item_id, user_id){
-      if(user_id == "" || user_id == null)
-      {
-        alert("You must have an account before proceeding.");
-        $("#accountModal").modal();
-      }
-      else {
-        $.ajax({
-          url: 'favourite.php',
-          type: "GET",
-          data: { item_id: item_id, user_id: user_id },
-          success: function(result) {
-            //$('#filter_prods').html(result);
-            console.log(result);
-          },
-          error: function(err) {
-            console.log(err);
-          }
-        });
-      }
-    }
-
-    // function checkFavItems(user_id){
-    //   var itemID = "";
-    //   $.ajax({
-    //     url: 'assets/snippets/find_favourite.php',
-    //     type: "GET",
-    //     data: { user_id: user_id, },
-    //     success: function(result) {
-    //       // $.each(result, function(i, val){
-    //       //   console.log(val);
-    //       // });
-    //     },
-    //     error: function(err) {
-    //       console.log(err);
-    //     }
-    //   });
-    // }
-
-
-  </script>
+    <script src="assets/js/favorite.js" type="text/javascript"></script>
+  
 </body>
 </html>

@@ -17,11 +17,24 @@
 
 
     <title>Verde - Sustainable Fashion</title>
+    <script>
+      var user_id = <?php echo $_SESSION['user_id']; ?>;
+    </script>
+    
   </head>
   <body>
     <?php include('assets/snippets/navbar.php'); ?>
     <!-- Navbar content over -->
+    <div id="favSidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">
+        <i class="fal fa-times fa-2x"></i>
+      </a>
 
+      <div id="fav_items">
+        <h4 class="text-light text-uppercase text-center pb-4 border-bottom"><i class="material-icons">favorite</i> My favorite</h4>
+        <div class="pt-4 sidebar"></div>
+      </div>
+    </div>
     <img src="assets/images/logo/logo_main_white.png" alt="Verde Logo2" class="logo" width="200px">
 
     <!-- Carousel content -->
@@ -93,7 +106,7 @@
     <script src="assets/js/carousel.js" type="text/javascript"></script>
     <script src="assets/js/validation.js" type="text/javascript"></script>
     <script src="assets/js/search.js" type="text/javascript"></script>
-    <script src="assets/js/count_fav.js" type="text/javascript"></script>
+    <script src="assets/js/favorite.js" type="text/javascript"></script>
 
   </body>
 </html>
