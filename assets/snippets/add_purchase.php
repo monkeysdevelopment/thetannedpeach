@@ -67,20 +67,21 @@
                             }
                         }
 
+                        
+
                         // Email content
+                        $message = "Your tracking number: $tracking. \n\n
+                        If you want to keep track of your orders you can access all details on your account page. \n\n
+                        Thank you for shopping with us! \n\n
+                        The Monkey Development Team";
                         $to      = $user['email'];
                         $subject = 'Your order confirmation';
-                        $headers = 'From: webmaster@example.com' . "\r\n" .
-                            'Reply-To: webmaster@example.com' . "\r\n" .
+                        $headers = 'From: verde.ecommerce@gmail.com' . "\r\n" .
+                            'Reply-To: verde.ecommerce@gmail.com' . "\r\n" .
                             'X-Mailer: PHP/' . phpversion();
 
-                        $message = 'Your tracking number: $tracking.<br>
-                        If you want to keep track of your orders you can access all details on your account page. <br><br>
-                        Thank you for shopping with us! <br><br>
-                        The Monkey Development Team';
-
                         mail($to, $subject, $message, $headers);
-
+                        header('Location: thank-you.html');
                     } else {
                         echo "No record found for user ID ".$user_id;
                     }

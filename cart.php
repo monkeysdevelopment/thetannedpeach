@@ -28,8 +28,8 @@
     <link rel="stylesheet" href="assets/css/cart.css">	
     <title>Verde - Bag</title>
 		<script>
-			var user_id = <?php echo $_SESSION['user_id']; ?>;
-		</script>
+      var user_id = <?php if($logged){ echo $_SESSION['user_id'];} else { echo 9999; }?>;
+    </script>
 
 
   </head>
@@ -156,8 +156,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <!-- Custom Js -->
     <script src="assets/js/scrollbar.js" type="text/javascript"></script>
-    <script src="assets/js/validation.js" type="text/javascript"></script>
 		<script src="assets/js/favorite.js" type="text/javascript"></script>
+		<script src="assets/js/bag.js" type="text/javascript"></script>
 	
 	<script>
 		function deleteItem(user,item,size,bag,price) {//elimina 1 elemento

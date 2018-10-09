@@ -18,8 +18,9 @@
   <link rel="stylesheet" href="assets/css/checkout.css">
 
   <title>Verde - Checkout</title>
+
   <script>
-    var user_id = <?php echo $_SESSION['user_id']; ?>;
+    var user_id = <?php if($logged){ echo $_SESSION['user_id'];} else { echo 9999; }?>;
   </script>
 </head>
 <body>
@@ -81,14 +82,7 @@
                             <div class="col p-0 text-left font-weight-bold h5">Total AUD</div>
                             <div class="col p-0 text-right font-weight-bold h5">$<?php echo $cart['total']; ?></div>
                         </div>
-                    </div>  
-                    
-                    <button type="button" id="guest_checkout" class="btn btn-info w-100 text-uppercase my-2 p-2">
-                        Checkout as a guest
-                    </button>
-                    <button type="button" id="signIn_checkout" class="btn btn-info w-100 text-uppercase my-2 p-2">
-                        Sign In for faster checkout
-                    </button>               
+                    </div>                
                 </div>
 
                 <!-- SHIPPING -->
@@ -177,6 +171,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBa_caBQt5qDAPb2PaeTuxkaLlC4LBPf0&libraries=places&callback=initAutocomplete" async defer></script>    
+
     <!-- Custom Js -->
     <script src="assets/js/scrollbar.js" type="text/javascript"></script>
     <script src="assets/js/carousel.js" type="text/javascript"></script>
@@ -227,14 +222,7 @@
             $('.back').tooltip('hide');
         });
 
-        if(user_id == null || user_id === ""){
-            $("#guest_checkout").attr("disabled", false);
-            $("#signIn_checkout").attr("disabled", false);
-        }else{
-            $("#guest_checkout").attr("disabled", true);
-            $("#signIn_checkout").attr("disabled", true);
-            $("#progress").attr("style","width:66%");
-        }
+        $("#progress").attr("style","width:66%");
 
         $("#payment").hide();
         
@@ -267,9 +255,6 @@
                 } 
             }    
         });
-
-        // TODO: Call delete function from the bagView
-
         
         
         function thankYou(){

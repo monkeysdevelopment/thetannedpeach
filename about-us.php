@@ -19,7 +19,7 @@
 
     <title>Verde - Sustainable Fashion</title>
     <script>
-      var user_id = <?php echo $_SESSION['user_id']; ?>;
+      var user_id = <?php if($logged){ echo $_SESSION['user_id'];} else { echo 9999; }?>;
     </script>
   </head>
   <body>

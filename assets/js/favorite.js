@@ -1,7 +1,5 @@
     // found is needed to store the array from the favorite table
     var found;
-
-
     $(document).ready(function(){
       //hide this [?? maybe better way for this ??]
       $('.count').hide();
@@ -14,7 +12,6 @@
 
       $('.fav').click(function(){
           checkFavItems(user_id);
-        
           countFav();
       });
 
@@ -48,7 +45,6 @@
               favItem(id, user_id);
             });
           }
-          console.log(isFavorite);
         },
         //on mouse leave
         function(){
@@ -56,7 +52,6 @@
             //replace the heart with the empty
             $(this).text("favorite_border");
           }
-          console.log(isFavorite);
         }
       );
     }
@@ -77,7 +72,6 @@
             checkFavItems(user_id);
             countFav();
             isFavorite = true;
-            //console.log(result);
           },
           error: function(err) {
             console.log(err);
@@ -136,7 +130,6 @@
             countFav();
             isFavorite = false;
             $("#rowfav-"+item_id).remove();
-            //console.log(result);
           },
           error: function(err) {
             console.log(err);
