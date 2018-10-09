@@ -18,7 +18,7 @@
 
     <title>Verde - Sustainable Fashion</title>
     <script>
-      var user_id = <?php echo $_SESSION['user_id']; ?>;
+      var user_id = <?php if($logged){ echo $_SESSION['user_id'];} else { echo 9999; }?>;
     </script>
     
   </head>
@@ -150,6 +150,7 @@
     <script src="assets/js/image-hover.js" type="text/javascript"></script>
     <script src="assets/js/googlemap.js" type="text/javascript"></script>
     <script src="assets/js/favorite.js" type="text/javascript"></script>
+    <script src="assets/js/bag.js" type="text/javascript"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfeX-6GJw9JIo_fWqfLFiYa8hwXcZotwo&callback=initMap"></script>
 
   </body>

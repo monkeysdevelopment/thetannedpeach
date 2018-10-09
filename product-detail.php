@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="assets/css/product-detail.css">
     <title>Verde - Product Details</title>
     <script>
-      var user_id = <?php echo $_SESSION['user_id']; ?>;
+      var user_id = <?php if($logged){ echo $_SESSION['user_id'];} else { echo 9999; }?>;
     </script>
   </head>
 
@@ -170,10 +170,10 @@
 								    $quantity = $row['quantity'];
 								    if($quantity>0){
 										if($count_rows==0){
-											echo '<div class="size_ col-sm-2">'.$size.'<input type="radio" name="size_item" value="'.$row["size_id"].'"  checked ></div>';
+											echo '<div class="size_ col-sm-2">'.$size.'<input class="m-2" type="radio" name="size_item" value="'.$row["size_id"].'"  checked ></div>';
 											$count_rows++;
 										}else	
-											echo '<div class="size_ col-sm-2">'.$size.'<input type="radio" name="size_item" value="'.$row["size_id"].'"></div>';
+											echo '<div class="size_ col-sm-2">'.$size.'<input class="m-2" type="radio" name="size_item" value="'.$row["size_id"].'"></div>';
 								    }
 								}
 							}else {
@@ -208,7 +208,7 @@
                 </div>
               </div>
               <br>
-                <button type = "button" onClick="AddToBag()"  class="btn-add-bag btn btn-dark col-sm-7">
+                <button type = "button" onClick="AddToBag()"  class="btn-add-bag btn-lg btn-dark col-sm-10">
                   <i class="fa fa-shopping-bag mr-3"></i> ADD TO BAG</button>
             </div>
 
@@ -231,6 +231,7 @@
     <script src="assets/js/validation.js" type="text/javascript"></script>
     <script src="assets/js/product-detail.js" type="text/javascript"></script>
     <script src="assets/js/favorite.js" type="text/javascript"></script>
+    <script src="assets/js/bag.js" type="text/javascript"></script>
 
      <script>
 	 

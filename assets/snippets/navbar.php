@@ -40,7 +40,7 @@
                   <i class="fas fa-user-cog fa-lg" id="user_icon"></i>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="navbarAccount">
-                  <a class="dropdown-item disabled text-capitalize" href="#"><?php echo $_SESSION['fname']; ?></a>
+                  <a class="dropdown-item" href="my-account.php">Account</a>
                   <a class="dropdown-item" href="logout.php">Log out</a>
                 </div>
               <?php
@@ -55,7 +55,7 @@
             <?php
               if($logged)
               {?>
-                  <i class="fas fa-heart fa-lg" onclick="openNav()"></i><span class="badge badge-pill badge-danger" id="count_fav"></span>
+                  <i class="fas fa-heart fa-lg" onclick="openNav()"></i><span class="badge badge-pill badge-danger align-top" id="count_fav"></span>
               <?php } else{ ?>
                 <i class="fas fa-heart fa-lg"></i>
                 <?php } ?>
@@ -64,13 +64,13 @@
 
         <span class="count"><?php include('assets/snippets/count_fav.php'); ?></span>
         <li class="nav-item">
-          <span class="nav-link">
+          <span>
             <?php
               if($logged)
               {?>
-                <a class="nav-item nav-link" href="cart.php"><i class="fas fa-shopping-bag fa-lg bag"></i><span class="badge badge-pill badge-danger" id="count_bag"></span></a>
+                <a class="nav-link" href="cart.php"><i class="fas fa-shopping-bag fa-lg bag"></i><span class="badge badge-pill badge-danger align-top" id="count_bag"></span></a>
               <?php } else{ ?>
-                <i class="fas fa-shopping-bag fa-lg"></i>
+                <i class="fas fa-shopping-bag fa-lg nav-link"></i>
               <?php } ?>
           </span>
         </li>
